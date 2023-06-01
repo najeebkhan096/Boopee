@@ -1,0 +1,718 @@
+import 'dart:io';
+
+import 'package:boopee/map/map1.dart';
+import 'package:boopee/map/map2.dart';
+import 'package:boopee/mapsplash.dart';
+import 'package:boopee/modal/post_item.dart';
+import 'package:boopee/screens/chat/chat_screen.dart';
+import 'package:boopee/screens/clan/checkmembersGroup_Clan.dart';
+import 'package:boopee/screens/clan/creating_event.dart';
+import 'package:boopee/screens/clan/invite_memeber.dart';
+import 'package:boopee/screens/postDetail.dart';
+import 'package:boopee/widgets/button.dart';
+import 'package:boopee/widgets/constants.dart';
+import 'package:boopee/widgets/nav.dart';
+import 'package:boopee/widgets/user.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+
+class ClanHomeScreen extends StatefulWidget {
+  @override
+  State<ClanHomeScreen> createState() => _ClanHomeScreenState();
+}
+
+class _ClanHomeScreenState extends State<ClanHomeScreen> with SingleTickerProviderStateMixin{
+
+  List<File> ? choosedfiles=[];
+  String  ? choosedfile_url='';
+  Future<File?> getfilename(int choice) async {
+    File ? selected_file;
+    if (choice == 1) {
+      final image =
+      await ImagePicker.platform.getImage(source: ImageSource.camera);
+      await    image!.length().then((value) {
+
+      });
+
+      setState(() {
+        choosedfiles!.add(File(image.path));
+      });
+
+
+    } else {
+      final image =
+      await ImagePicker.platform.getImage(source: ImageSource.gallery);
+      setState(() {
+        choosedfiles!.add(File(image!.path));
+      });
+    }
+    return selected_file;
+  }
+
+
+  Future<File?> _show_my_Dialog() async{
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+    File ? choosedfile;
+    await  showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+
+            content: Container(
+              height: MediaQuery.of(context).size.height * 0.2,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ListTile(
+                    onTap: () async{
+                      await  getfilename(1).then((value) async {
+                        choosedfile=value;
+                        Navigator.pop(context,value);
+                      });
+                    },
+                    leading: Icon(
+                      Icons.camera,
+                      color: mycolor,
+                    ),
+                    title: Text( "Camera",
+                      style: myStyle.inter_252525(height*0.018, FontWeight.w700),
+                    ),
+                  ),
+                  ListTile(
+                    onTap: () async{
+                      await getfilename(2).then((value) {
+                        choosedfile=value;
+                        Navigator.pop (context,value);
+                      });
+                    },
+                    leading: Icon(
+                      Icons.image,
+                      color: mycolor,
+                    ),
+                    title: Text( "Gallery",
+                      style: myStyle.inter_252525(height*0.018, FontWeight.w700),
+                    ),
+                  )
+                ],
+              ),
+            )));
+    return choosedfile;
+  }
+
+  void _share_showBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      enableDrag: true,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topRight: Radius.circular(10),
+              topLeft: Radius.circular(10)
+          )
+      ),
+      builder: (BuildContext context) {
+        final height=MediaQuery.of(context).size.height;
+        final width=MediaQuery.of(context).size.width;
+        return StatefulBuilder(builder: (context,mystate){
+          return GestureDetector(
+            onTap: (){
+              final currentFocus = FocusScope.of(context);
+              if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+                currentFocus.focusedChild!.unfocus();
+                mystate((){
+
+                });
+              }
+            },
+            child: Container(
+              height:
+              height*0.47
+              ,
+              child: ListView(
+
+                children: [
+                  SizedBox(height: height*0.025,),
+                  Container(
+                    height: height*0.06,
+                    decoration: BoxDecoration(
+                        color: Color(0xffF3F4F6),
+                        borderRadius: BorderRadius.circular(10)
+                    ),
+                    margin: EdgeInsets.only(left: width*0.05,right: width*0.05),
+                    padding:  EdgeInsets.only(left: width*0.05,right: width*0.05),
+                    child: Row(
+                      children: [
+                        Image.asset("images/send.png",
+                          height: height*0.025,
+                        ),
+                        SizedBox(width: width*0.025,),
+
+                        Text("Manage something",
+                          style: myStyle.inter_252525(height*0.018, FontWeight.w500),
+                        ),
+                      ],
+
+                    ),
+                  ),
+                  SizedBox(height: height*0.015,),
+
+                  Container(
+                    height: height*0.06,
+                    decoration: BoxDecoration(
+                        color: Color(0xffF3F4F6),
+                        borderRadius: BorderRadius.circular(10)
+                    ),
+                    margin: EdgeInsets.only(left: width*0.05,right: width*0.05),
+                    padding:  EdgeInsets.only(left: width*0.05,right: width*0.05),
+                    child: Row(
+                      children: [
+                        Image.asset("images/send.png",
+                          height: height*0.025,
+                        ),
+                        SizedBox(width: width*0.025,),
+
+                        Text("Manage another thing",
+                          style: myStyle.inter_252525(height*0.018, FontWeight.w500),
+                        ),
+                      ],
+
+                    ),
+                  ),
+                  SizedBox(height: height*0.015,),
+
+                  Container(
+                    height: height*0.06,
+                    decoration: BoxDecoration(
+                        color: Color(0xffF3F4F6),
+                        borderRadius: BorderRadius.circular(10)
+                    ),
+                    margin: EdgeInsets.only(left: width*0.05,right: width*0.05),
+                    padding:  EdgeInsets.only(left: width*0.05,right: width*0.05),
+                    child: Row(
+                      children: [
+                        Image.asset("images/send.png",
+                          height: height*0.025,
+                        ),
+                        SizedBox(width: width*0.025,),
+
+                        Text("Group settings",
+                          style: myStyle.inter_252525(height*0.018, FontWeight.w500),
+                        ),
+                      ],
+
+                    ),
+                  ),
+                  SizedBox(height: height*0.015,),
+
+                  Container(
+                    height: height*0.06,
+                    decoration: BoxDecoration(
+                        color: Color(0xffF3F4F6),
+                        borderRadius: BorderRadius.circular(10)
+                    ),
+                    margin: EdgeInsets.only(left: width*0.05,right: width*0.05),
+                    padding:  EdgeInsets.only(left: width*0.05,right: width*0.05),
+                    child: Row(
+                      children: [
+                        Image.asset("images/eye.png",
+                          height: height*0.025,
+                        ),
+                        SizedBox(width: width*0.025,),
+
+                        Text("Not interested",
+                          style: myStyle.inter_252525(height*0.018, FontWeight.w500),
+                        ),
+                      ],
+
+                    ),
+                  ),
+                  SizedBox(height: height*0.015,),
+
+                  Container(
+                    height: height*0.06,
+                    decoration: BoxDecoration(
+                        color: Color(0xffFEF3F2),
+                        borderRadius: BorderRadius.circular(10)
+                    ),
+                    margin: EdgeInsets.only(left: width*0.05,right: width*0.05),
+                    padding:  EdgeInsets.only(left: width*0.05,right: width*0.05),
+                    child: Row(
+                      children: [
+                        Image.asset("images/annotation-alert.png",
+                          height: height*0.025,
+                        ),
+                        SizedBox(width: width*0.025,),
+
+                        Text("Leave group",
+                          style: myStyle.inter_D92D20(height*0.018, FontWeight.w500),
+                        ),
+                      ],
+
+                    ),
+                  ),
+                  SizedBox(height: height*0.015,),
+                ],
+              ),
+            ),
+          );
+        });
+      },
+    );
+  }
+
+  List<Map> data=[
+    {
+      'url':'https://images.mubicdn.net/images/cast_member/2184/cache-2992-1547409411/image-w856.jpg?size=800x',
+      'title':'Dallas Dog lovers Club ',
+      'subtitle':'5k members',
+      'status':true,
+      'emoji':'images/Frame (4).png'
+    },
+    {
+      'url':'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzHQv_th9wq3ivQ1CVk7UZRxhbPq64oQrg5Q&usqp=CAU',
+      'title':'Sicilian Chess Dogs..',
+      'subtitle':'10k members',
+      'status':false,
+      'emoji':'images/Frame (5).png'
+    },   {
+      'url':'https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?cs=srgb&dl=pexels-andrea-piacquadio-733872.jpg&fm=jpg',
+      'title':'John ',
+      'subtitle':'15k members',
+      'status':false,
+      'emoji':'images/Frame (6).png'
+    },   {
+      'url':'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fHByb2ZpbGV8ZW58MHx8MHx8&w=1000&q=80',
+      'title':'Monica ',
+      'subtitle':'20k members',
+      'status':false,
+      'emoji':''
+    },
+    {
+      'url':'https://images.mubicdn.net/images/cast_member/2184/cache-2992-1547409411/image-w856.jpg?size=800x',
+      'title':'Smith ',
+      'subtitle':'Hi, David. Hope you’re doing....',
+      'status':false,
+      'emoji':''
+    },
+    {
+      'url':'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzHQv_th9wq3ivQ1CVk7UZRxhbPq64oQrg5Q&usqp=CAU',
+      'title':'Eid preparations',
+      'subtitle':'25k members',
+      'status':false,
+      'emoji':''
+    },   {
+      'url':'https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?cs=srgb&dl=pexels-andrea-piacquadio-733872.jpg&fm=jpg',
+      'title':'John Walton',
+      'subtitle':'35k members',
+      'status':false,
+      'emoji':''
+    },   {
+      'url':'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fHByb2ZpbGV8ZW58MHx8MHx8&w=1000&q=80',
+      'title':'Monica Randawa',
+      'subtitle':'40k members.',
+      'status':false,
+      'emoji':''
+    },
+    {
+      'url':'https://images.mubicdn.net/images/cast_member/2184/cache-2992-1547409411/image-w856.jpg?size=800x',
+      'title':'Smith Mathew',
+      'subtitle':'45k members',
+      'status':false,
+      'emoji':''
+    },
+    {
+      'url':'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzHQv_th9wq3ivQ1CVk7UZRxhbPq64oQrg5Q&usqp=CAU',
+      'title':'Eid preparations',
+      'subtitle':'50k members',
+      'status':false,
+      'emoji':''
+    },   {
+      'url':'https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?cs=srgb&dl=pexels-andrea-piacquadio-733872.jpg&fm=jpg',
+      'title':'John Walton',
+      'subtitle':'55k members',
+      'status':false,
+      'emoji':''
+    },   {
+      'url':'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fHByb2ZpbGV8ZW58MHx8MHx8&w=1000&q=80',
+      'title':'Monica Randawa',
+      'subtitle':'23k',
+      'status':false,
+      'emoji':''
+    },
+  ];
+  bool chat=false;
+  @override
+  Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+    return Scaffold(
+      bottomNavigationBar: MyHomeNavBar(),
+      backgroundColor: Colors.white,
+
+      body: ListView(
+        children: [
+
+
+          Container(
+            height: height*0.3,
+            width: width*1,
+            decoration: BoxDecoration(
+                image: DecorationImage(image: AssetImage("images/kutta.png",
+                ),
+                    fit: BoxFit.fill
+                )
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InkWell(
+                      onTap: (){
+                        Navigator.of(context).pop();
+                      },
+                      child: Container(
+                        alignment: Alignment.centerLeft,
+                        margin: EdgeInsets.only(left: width*0.05,top: height*0.025),
+                        child: CircleAvatar(
+                          radius: 20,
+                          backgroundColor: Color(0xff366c88),
+                          child: Container (
+                              margin: EdgeInsets.only(left: width*0.015),
+                              child: Icon(Icons.arrow_back_ios,color: Colors.white,size: 20,)),
+                        ),
+                      ),
+                    ),
+
+                    InkWell(
+                      onTap: (){
+
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                          return CreatingEventScreen();
+                        }));
+                      },
+                      child: Container(
+                        alignment: Alignment.centerLeft,
+                        margin: EdgeInsets.only(right: width*0.05,top: height*0.025),
+                        child: CircleAvatar(
+                          radius: 20,
+                          backgroundColor: Color(0xff366c88),
+                          child: Container(
+                              child: Icon(Icons.more_horiz,color: Colors.white,size: 20,)),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: height*0.1,),
+
+                Container(
+                  height: height*0.1,
+                  width: width*1,
+                  color: Color.fromRGBO(255, 255, 255, 0.7),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(left: width*0.05,right: width*0.05,top: height*0.015),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: [
+                                Text("Chiwawa Lovers",
+                                  style: myStyle.inter_252525(height*0.02, FontWeight.w600),
+                                ),
+                                InkWell(
+                                  onTap: (){
+                                    Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                                      return ChechGroupdMembersClan();
+                                    }));
+                                  },
+                                  child: Container(
+                                    margin: EdgeInsets.only(left: width*0.05,top: height*0.01),
+                                    child: Row(
+                                      children: [
+                                        Image.asset("images/Avatar2.png",
+                                          height: height*0.03,
+                                        ),
+                                        SizedBox(width: width*0.025,),
+                                        Text("5k members",
+                                          style: myStyle.inter_525252(height*0.014, FontWeight.w500),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                )
+
+                              ],
+                            )
+                            ,
+                            Container(
+                              width: width*0.15,
+                              height: height*0.05,
+                              decoration: BoxDecoration(
+                                  color: Color.fromRGBO(0, 0, 0, 0.3),
+                                  borderRadius: BorderRadius.circular(10)
+                              ),
+                              child: Column(
+                                children: [
+                                  Image.asset("images/smiley-happy.png",height: height*0.025),
+                                  Center(
+                                    child: Text("1582 pts",
+                                      style: myStyle.inter_white(height*0.012, FontWeight.w600),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+
+                          ],
+                        ),
+                      ),
+
+
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+
+          SizedBox(height: height*0.025,),
+
+          Container(
+            margin: EdgeInsets.only(left: width*0.05,right: width*0.05),
+            child:   Text("Introduction",
+
+              style: myStyle.inter_252525(height*0.02, FontWeight.w700),
+
+            ),
+          ),
+          SizedBox(height: height*0.025,),
+          Container(
+              margin:EdgeInsets.only(left: width*0.05,right:width*0.05),
+              child: Text("Welcome to chiwawa lovers group, be friendly and post your dogs photo.",style:myStyle.inter_79716B(height*0.014, FontWeight.w400))),
+          SizedBox(height: height*0.01,),
+          Container(
+            margin:EdgeInsets.only(left: width*0.05,right:width*0.05),
+            child: Divider(
+              color: Color(0xffE4E4E7),
+            ),
+          ),
+          SizedBox(height: height*0.01,),
+
+          Container(
+            margin: EdgeInsets.only(left: width*0.05,right: width*0.05),
+            child:   Text("Clan Territory",
+
+              style: myStyle.inter_252525(height*0.02, FontWeight.w700),
+
+            ),
+          ),
+
+          SizedBox(height: height*0.02,),
+
+          InkWell(
+            onTap: (){
+              Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                return MapSplashScreen();
+              }));
+            },
+            child: Container(
+                margin: EdgeInsets.only(left: width*0.05,right: width*0.05),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10)
+                ),
+                child: Image.asset("images/map2.png",height: height*0.25,fit: BoxFit.fill)),
+          ),
+          SizedBox(height: height*0.025,),
+          Container(
+            margin: EdgeInsets.only(left: width*0.05,right: width*0.05),
+            decoration: BoxDecoration(
+                border: Border.all(
+                  color: Color(0xffE4E4E7),
+                ),
+                borderRadius: BorderRadius.circular(10)
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+
+                Container(
+                  height: height*0.1,
+                  margin: EdgeInsets.only(left: width*0.05,right: width*0.05),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 15,
+                        backgroundImage: NetworkImage("https://alpha.aeon.co/images/acd6897d-9849-4188-92c6-79dabcbcd518/header_essay-final-gettyimages-685469924.jpg"),
+                      ),
+                      SizedBox(width: width*0.02,),
+                      Expanded(
+                        child: Container(
+                          height: height*0.06,
+                          decoration: BoxDecoration(
+
+                          ),
+                          padding: EdgeInsets.only(left: width*0.025),
+                          alignment: Alignment.center,
+                          child: TextField(
+                            textAlignVertical: TextAlignVertical.center,
+                            textAlign: TextAlign.left,
+                            decoration: InputDecoration(
+                                hintText: 'What’s on your mind, James?',
+                                border: InputBorder.none,
+                                hintStyle: myStyle.inter_79716B(height*0.016, FontWeight.w400  )
+                            ),
+                          ),
+                        ),
+                      )
+
+
+                    ],
+                  ),
+                ),
+                if(choosedfiles!.length>0)
+                  Container(
+                    height: height*0.12,
+                    margin: EdgeInsets.only(bottom: height*0.015,left: width*0.025),
+                    child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: choosedfiles!.length,
+                        itemBuilder: (context,index){
+                          return  Container(
+                            margin: EdgeInsets.only(left: width*0.025),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  height: height*0.12,
+                                  width: width*0.3,
+
+                                  decoration: BoxDecoration(
+
+                                      borderRadius: BorderRadius.circular(10),
+                                      image: DecorationImage(image:
+                                      FileImage(choosedfiles![index]),
+                                          fit: BoxFit.fill
+                                      )
+                                  ),
+
+
+                                ),
+                              ],
+                            ),
+                          );
+                        }),
+                  ),
+
+                Row(
+                  children: [
+                    InkWell(
+                      onTap: (){
+                        _show_my_Dialog();
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(left: width*0.05,right: width*0.05),
+                        child: Container(
+                          width: width*0.25,
+                          height: height*0.038,
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Color.fromRGBO(0, 0, 0, 0.3)
+                              ),
+                              borderRadius: BorderRadius.circular(15)
+                          ),
+                          child: Center(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset("images/camera.png",height: height*0.018,
+                                  color: Color(0xffF97066),
+                                ),
+                                SizedBox(width: width*0.015,),
+
+                                Text("Camera",
+                                  style: myStyle.inter_79716B(height*0.015, FontWeight.w600),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    Container(
+
+                      child: Container(
+                        width: width*0.25,
+                        height: height*0.038,
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                color: Color.fromRGBO(0, 0, 0, 0.3)
+                            ),
+                            borderRadius: BorderRadius.circular(15)
+                        ),
+                        child: Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset("images/location.png",height: height*0.018,
+                                color: Color(0xff12B76A),
+                              ),
+                              SizedBox(width: width*0.015,),
+
+                              Text("Location",
+                                style: myStyle.inter_79716B(height*0.015, FontWeight.w600),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: width*0.05),
+                      child: Container(
+                        width: width*0.2,
+                        height: height*0.038,
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                color: Color.fromRGBO(0, 0, 0, 0.3)
+                            ),
+                            borderRadius: BorderRadius.circular(15)
+                        ),
+                        child: Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset("images/Solid (1).png",height: height*0.018,
+                                color: Color(0xffFF9C66),
+                              ),
+                              SizedBox(width: width*0.015,),
+
+                              Text("Poll",
+                                style: myStyle.inter_79716B(height*0.015, FontWeight.w600),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
+                SizedBox(height: height*0.02,),
+
+              ],
+            ),
+          ),
+
+
+
+        ],
+      ),
+    );
+  }
+}
