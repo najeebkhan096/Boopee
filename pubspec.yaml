@@ -47,6 +47,8 @@ dependencies:
   toggle_switch: ^2.0.1
   google_maps_flutter: ^2.2.2
   camera: ^0.9.4+16
+  firebase_core: ^2.13.1
+  firebase_auth: ^4.6.2
 
 
 dev_dependencies:

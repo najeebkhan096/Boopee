@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "165519428953",
+    "project_id": "boopee-app",
+    "storage_bucket": "boopee-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:165519428953:android:ca596068108b338973d048",
+        "android_client_info": {
+          "package_name": "com.example.boopee"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzfeZfOx2GeiGNoieCCEy1E70V2MllJPM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
