@@ -1,3 +1,4 @@
+import 'package:boopee/modal/register_request_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'auth_state.freezed.dart';
@@ -12,15 +13,17 @@ class AuthState with _$AuthState {
     required String verificationId,
     required String smsCode,
     required String userId,
+    required RegisterRequestModel? registerRequestModel,
   }) = _AuthState;
 
-  factory AuthState.initial() => const AuthState(
+  factory AuthState.initial() => AuthState(
         showLoding: false,
         errorMessage: "",
         phoneNumber: "",
         verificationId: "",
         smsCode: "",
         userId: "",
+        registerRequestModel: RegisterRequestModel.initial(),
       );
 
   factory AuthState.fromJson(Map<String, dynamic> json) =>

@@ -20,35 +20,60 @@ RegisterRequestModel _$RegisterRequestModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$RegisterRequestModel {
+  @JsonKey(name: 'first_name')
   String get firstName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'last_name')
   String get lastName => throw _privateConstructorUsedError;
   String get pseudo => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
+  @JsonKey(name: 'phone_number')
   String get phoneNumber => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_tos_accepted')
   bool get isTosAccepted => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_offer_notifications_enabled')
   bool get isOfferNotificationsEnabled => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_gps_enabled')
   bool get isGpsEnabled => throw _privateConstructorUsedError;
   String get dob => throw _privateConstructorUsedError;
+  @JsonKey(name: 'pet_description')
   String get petDescription => throw _privateConstructorUsedError;
+  @JsonKey(name: 'pet_audio')
   String get petAudio => throw _privateConstructorUsedError;
+  @JsonKey(name: 'qr_code')
   String get qrCode => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_match_notifications_enabled')
   bool get isMatchNotificationsEnabled => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_message_notifications_enabled')
   bool get isMessageNotificationsEnabled => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_position_notifications_enabled')
   bool get isPositionNotificationsEnabled => throw _privateConstructorUsedError;
+  @JsonKey(name: 'delete_reason_id')
   String get deleteReasonId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_suspended')
   bool get isSuspended => throw _privateConstructorUsedError;
+  @JsonKey(name: 'owner_gender_id')
   String get ownerGenderId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'pet_name')
   String get petName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'pet_size')
   String get petSize => throw _privateConstructorUsedError;
+  @JsonKey(name: 'pet_weight')
   String get petWeight => throw _privateConstructorUsedError;
+  @JsonKey(name: 'breed_id')
   String get breedId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'm_breed_id')
   String get mBreedId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'f_breed_id')
   String get fBreedId => throw _privateConstructorUsedError;
   String get document => throw _privateConstructorUsedError;
+  @JsonKey(name: 'pet_gender_id')
   String get petGenderId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_pet_lost')
   bool get isPetLost => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_sterilized')
   bool get isSterilized => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_deleted')
   bool get isDeleted => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -64,36 +89,61 @@ abstract class $RegisterRequestModelCopyWith<$Res> {
       _$RegisterRequestModelCopyWithImpl<$Res, RegisterRequestModel>;
   @useResult
   $Res call(
-      {String firstName,
-      String lastName,
+      {@JsonKey(name: 'first_name')
+          String firstName,
+      @JsonKey(name: 'last_name')
+          String lastName,
       String pseudo,
       String password,
       String email,
-      String phoneNumber,
-      bool isTosAccepted,
-      bool isOfferNotificationsEnabled,
-      bool isGpsEnabled,
+      @JsonKey(name: 'phone_number')
+          String phoneNumber,
+      @JsonKey(name: 'is_tos_accepted')
+          bool isTosAccepted,
+      @JsonKey(name: 'is_offer_notifications_enabled')
+          bool isOfferNotificationsEnabled,
+      @JsonKey(name: 'is_gps_enabled')
+          bool isGpsEnabled,
       String dob,
-      String petDescription,
-      String petAudio,
-      String qrCode,
-      bool isMatchNotificationsEnabled,
-      bool isMessageNotificationsEnabled,
-      bool isPositionNotificationsEnabled,
-      String deleteReasonId,
-      bool isSuspended,
-      String ownerGenderId,
-      String petName,
-      String petSize,
-      String petWeight,
-      String breedId,
-      String mBreedId,
-      String fBreedId,
+      @JsonKey(name: 'pet_description')
+          String petDescription,
+      @JsonKey(name: 'pet_audio')
+          String petAudio,
+      @JsonKey(name: 'qr_code')
+          String qrCode,
+      @JsonKey(name: 'is_match_notifications_enabled')
+          bool isMatchNotificationsEnabled,
+      @JsonKey(name: 'is_message_notifications_enabled')
+          bool isMessageNotificationsEnabled,
+      @JsonKey(name: 'is_position_notifications_enabled')
+          bool isPositionNotificationsEnabled,
+      @JsonKey(name: 'delete_reason_id')
+          String deleteReasonId,
+      @JsonKey(name: 'is_suspended')
+          bool isSuspended,
+      @JsonKey(name: 'owner_gender_id')
+          String ownerGenderId,
+      @JsonKey(name: 'pet_name')
+          String petName,
+      @JsonKey(name: 'pet_size')
+          String petSize,
+      @JsonKey(name: 'pet_weight')
+          String petWeight,
+      @JsonKey(name: 'breed_id')
+          String breedId,
+      @JsonKey(name: 'm_breed_id')
+          String mBreedId,
+      @JsonKey(name: 'f_breed_id')
+          String fBreedId,
       String document,
-      String petGenderId,
-      bool isPetLost,
-      bool isSterilized,
-      bool isDeleted});
+      @JsonKey(name: 'pet_gender_id')
+          String petGenderId,
+      @JsonKey(name: 'is_pet_lost')
+          bool isPetLost,
+      @JsonKey(name: 'is_sterilized')
+          bool isSterilized,
+      @JsonKey(name: 'is_deleted')
+          bool isDeleted});
 }
 
 /// @nodoc
@@ -275,36 +325,61 @@ abstract class _$$_RegisterRequestModelCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String firstName,
-      String lastName,
+      {@JsonKey(name: 'first_name')
+          String firstName,
+      @JsonKey(name: 'last_name')
+          String lastName,
       String pseudo,
       String password,
       String email,
-      String phoneNumber,
-      bool isTosAccepted,
-      bool isOfferNotificationsEnabled,
-      bool isGpsEnabled,
+      @JsonKey(name: 'phone_number')
+          String phoneNumber,
+      @JsonKey(name: 'is_tos_accepted')
+          bool isTosAccepted,
+      @JsonKey(name: 'is_offer_notifications_enabled')
+          bool isOfferNotificationsEnabled,
+      @JsonKey(name: 'is_gps_enabled')
+          bool isGpsEnabled,
       String dob,
-      String petDescription,
-      String petAudio,
-      String qrCode,
-      bool isMatchNotificationsEnabled,
-      bool isMessageNotificationsEnabled,
-      bool isPositionNotificationsEnabled,
-      String deleteReasonId,
-      bool isSuspended,
-      String ownerGenderId,
-      String petName,
-      String petSize,
-      String petWeight,
-      String breedId,
-      String mBreedId,
-      String fBreedId,
+      @JsonKey(name: 'pet_description')
+          String petDescription,
+      @JsonKey(name: 'pet_audio')
+          String petAudio,
+      @JsonKey(name: 'qr_code')
+          String qrCode,
+      @JsonKey(name: 'is_match_notifications_enabled')
+          bool isMatchNotificationsEnabled,
+      @JsonKey(name: 'is_message_notifications_enabled')
+          bool isMessageNotificationsEnabled,
+      @JsonKey(name: 'is_position_notifications_enabled')
+          bool isPositionNotificationsEnabled,
+      @JsonKey(name: 'delete_reason_id')
+          String deleteReasonId,
+      @JsonKey(name: 'is_suspended')
+          bool isSuspended,
+      @JsonKey(name: 'owner_gender_id')
+          String ownerGenderId,
+      @JsonKey(name: 'pet_name')
+          String petName,
+      @JsonKey(name: 'pet_size')
+          String petSize,
+      @JsonKey(name: 'pet_weight')
+          String petWeight,
+      @JsonKey(name: 'breed_id')
+          String breedId,
+      @JsonKey(name: 'm_breed_id')
+          String mBreedId,
+      @JsonKey(name: 'f_breed_id')
+          String fBreedId,
       String document,
-      String petGenderId,
-      bool isPetLost,
-      bool isSterilized,
-      bool isDeleted});
+      @JsonKey(name: 'pet_gender_id')
+          String petGenderId,
+      @JsonKey(name: 'is_pet_lost')
+          bool isPetLost,
+      @JsonKey(name: 'is_sterilized')
+          bool isSterilized,
+      @JsonKey(name: 'is_deleted')
+          bool isDeleted});
 }
 
 /// @nodoc
@@ -478,43 +553,70 @@ class __$$_RegisterRequestModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_RegisterRequestModel implements _RegisterRequestModel {
   const _$_RegisterRequestModel(
-      {required this.firstName,
-      required this.lastName,
+      {@JsonKey(name: 'first_name')
+          required this.firstName,
+      @JsonKey(name: 'last_name')
+          required this.lastName,
       required this.pseudo,
       required this.password,
       required this.email,
-      required this.phoneNumber,
-      required this.isTosAccepted,
-      required this.isOfferNotificationsEnabled,
-      required this.isGpsEnabled,
+      @JsonKey(name: 'phone_number')
+          required this.phoneNumber,
+      @JsonKey(name: 'is_tos_accepted')
+          required this.isTosAccepted,
+      @JsonKey(name: 'is_offer_notifications_enabled')
+          required this.isOfferNotificationsEnabled,
+      @JsonKey(name: 'is_gps_enabled')
+          required this.isGpsEnabled,
       required this.dob,
-      required this.petDescription,
-      required this.petAudio,
-      required this.qrCode,
-      required this.isMatchNotificationsEnabled,
-      required this.isMessageNotificationsEnabled,
-      required this.isPositionNotificationsEnabled,
-      required this.deleteReasonId,
-      required this.isSuspended,
-      required this.ownerGenderId,
-      required this.petName,
-      required this.petSize,
-      required this.petWeight,
-      required this.breedId,
-      required this.mBreedId,
-      required this.fBreedId,
+      @JsonKey(name: 'pet_description')
+          required this.petDescription,
+      @JsonKey(name: 'pet_audio')
+          required this.petAudio,
+      @JsonKey(name: 'qr_code')
+          required this.qrCode,
+      @JsonKey(name: 'is_match_notifications_enabled')
+          required this.isMatchNotificationsEnabled,
+      @JsonKey(name: 'is_message_notifications_enabled')
+          required this.isMessageNotificationsEnabled,
+      @JsonKey(name: 'is_position_notifications_enabled')
+          required this.isPositionNotificationsEnabled,
+      @JsonKey(name: 'delete_reason_id')
+          required this.deleteReasonId,
+      @JsonKey(name: 'is_suspended')
+          required this.isSuspended,
+      @JsonKey(name: 'owner_gender_id')
+          required this.ownerGenderId,
+      @JsonKey(name: 'pet_name')
+          required this.petName,
+      @JsonKey(name: 'pet_size')
+          required this.petSize,
+      @JsonKey(name: 'pet_weight')
+          required this.petWeight,
+      @JsonKey(name: 'breed_id')
+          required this.breedId,
+      @JsonKey(name: 'm_breed_id')
+          required this.mBreedId,
+      @JsonKey(name: 'f_breed_id')
+          required this.fBreedId,
       required this.document,
-      required this.petGenderId,
-      required this.isPetLost,
-      required this.isSterilized,
-      required this.isDeleted});
+      @JsonKey(name: 'pet_gender_id')
+          required this.petGenderId,
+      @JsonKey(name: 'is_pet_lost')
+          required this.isPetLost,
+      @JsonKey(name: 'is_sterilized')
+          required this.isSterilized,
+      @JsonKey(name: 'is_deleted')
+          required this.isDeleted});
 
   factory _$_RegisterRequestModel.fromJson(Map<String, dynamic> json) =>
       _$$_RegisterRequestModelFromJson(json);
 
   @override
+  @JsonKey(name: 'first_name')
   final String firstName;
   @override
+  @JsonKey(name: 'last_name')
   final String lastName;
   @override
   final String pseudo;
@@ -523,54 +625,77 @@ class _$_RegisterRequestModel implements _RegisterRequestModel {
   @override
   final String email;
   @override
+  @JsonKey(name: 'phone_number')
   final String phoneNumber;
   @override
+  @JsonKey(name: 'is_tos_accepted')
   final bool isTosAccepted;
   @override
+  @JsonKey(name: 'is_offer_notifications_enabled')
   final bool isOfferNotificationsEnabled;
   @override
+  @JsonKey(name: 'is_gps_enabled')
   final bool isGpsEnabled;
   @override
   final String dob;
   @override
+  @JsonKey(name: 'pet_description')
   final String petDescription;
   @override
+  @JsonKey(name: 'pet_audio')
   final String petAudio;
   @override
+  @JsonKey(name: 'qr_code')
   final String qrCode;
   @override
+  @JsonKey(name: 'is_match_notifications_enabled')
   final bool isMatchNotificationsEnabled;
   @override
+  @JsonKey(name: 'is_message_notifications_enabled')
   final bool isMessageNotificationsEnabled;
   @override
+  @JsonKey(name: 'is_position_notifications_enabled')
   final bool isPositionNotificationsEnabled;
   @override
+  @JsonKey(name: 'delete_reason_id')
   final String deleteReasonId;
   @override
+  @JsonKey(name: 'is_suspended')
   final bool isSuspended;
   @override
+  @JsonKey(name: 'owner_gender_id')
   final String ownerGenderId;
   @override
+  @JsonKey(name: 'pet_name')
   final String petName;
   @override
+  @JsonKey(name: 'pet_size')
   final String petSize;
   @override
+  @JsonKey(name: 'pet_weight')
   final String petWeight;
   @override
+  @JsonKey(name: 'breed_id')
   final String breedId;
   @override
+  @JsonKey(name: 'm_breed_id')
   final String mBreedId;
   @override
+  @JsonKey(name: 'f_breed_id')
   final String fBreedId;
   @override
   final String document;
   @override
+  @JsonKey(name: 'pet_gender_id')
   final String petGenderId;
   @override
+  @JsonKey(name: 'is_pet_lost')
   final bool isPetLost;
   @override
+  @JsonKey(name: 'is_sterilized')
   final bool isSterilized;
   @override
+  @JsonKey(name: 'is_deleted')
   final bool isDeleted;
 
   @override
@@ -696,43 +821,70 @@ class _$_RegisterRequestModel implements _RegisterRequestModel {
 
 abstract class _RegisterRequestModel implements RegisterRequestModel {
   const factory _RegisterRequestModel(
-      {required final String firstName,
-      required final String lastName,
+      {@JsonKey(name: 'first_name')
+          required final String firstName,
+      @JsonKey(name: 'last_name')
+          required final String lastName,
       required final String pseudo,
       required final String password,
       required final String email,
-      required final String phoneNumber,
-      required final bool isTosAccepted,
-      required final bool isOfferNotificationsEnabled,
-      required final bool isGpsEnabled,
+      @JsonKey(name: 'phone_number')
+          required final String phoneNumber,
+      @JsonKey(name: 'is_tos_accepted')
+          required final bool isTosAccepted,
+      @JsonKey(name: 'is_offer_notifications_enabled')
+          required final bool isOfferNotificationsEnabled,
+      @JsonKey(name: 'is_gps_enabled')
+          required final bool isGpsEnabled,
       required final String dob,
-      required final String petDescription,
-      required final String petAudio,
-      required final String qrCode,
-      required final bool isMatchNotificationsEnabled,
-      required final bool isMessageNotificationsEnabled,
-      required final bool isPositionNotificationsEnabled,
-      required final String deleteReasonId,
-      required final bool isSuspended,
-      required final String ownerGenderId,
-      required final String petName,
-      required final String petSize,
-      required final String petWeight,
-      required final String breedId,
-      required final String mBreedId,
-      required final String fBreedId,
+      @JsonKey(name: 'pet_description')
+          required final String petDescription,
+      @JsonKey(name: 'pet_audio')
+          required final String petAudio,
+      @JsonKey(name: 'qr_code')
+          required final String qrCode,
+      @JsonKey(name: 'is_match_notifications_enabled')
+          required final bool isMatchNotificationsEnabled,
+      @JsonKey(name: 'is_message_notifications_enabled')
+          required final bool isMessageNotificationsEnabled,
+      @JsonKey(name: 'is_position_notifications_enabled')
+          required final bool isPositionNotificationsEnabled,
+      @JsonKey(name: 'delete_reason_id')
+          required final String deleteReasonId,
+      @JsonKey(name: 'is_suspended')
+          required final bool isSuspended,
+      @JsonKey(name: 'owner_gender_id')
+          required final String ownerGenderId,
+      @JsonKey(name: 'pet_name')
+          required final String petName,
+      @JsonKey(name: 'pet_size')
+          required final String petSize,
+      @JsonKey(name: 'pet_weight')
+          required final String petWeight,
+      @JsonKey(name: 'breed_id')
+          required final String breedId,
+      @JsonKey(name: 'm_breed_id')
+          required final String mBreedId,
+      @JsonKey(name: 'f_breed_id')
+          required final String fBreedId,
       required final String document,
-      required final String petGenderId,
-      required final bool isPetLost,
-      required final bool isSterilized,
-      required final bool isDeleted}) = _$_RegisterRequestModel;
+      @JsonKey(name: 'pet_gender_id')
+          required final String petGenderId,
+      @JsonKey(name: 'is_pet_lost')
+          required final bool isPetLost,
+      @JsonKey(name: 'is_sterilized')
+          required final bool isSterilized,
+      @JsonKey(name: 'is_deleted')
+          required final bool isDeleted}) = _$_RegisterRequestModel;
 
   factory _RegisterRequestModel.fromJson(Map<String, dynamic> json) =
       _$_RegisterRequestModel.fromJson;
 
   @override
+  @JsonKey(name: 'first_name')
   String get firstName;
   @override
+  @JsonKey(name: 'last_name')
   String get lastName;
   @override
   String get pseudo;
@@ -741,54 +893,77 @@ abstract class _RegisterRequestModel implements RegisterRequestModel {
   @override
   String get email;
   @override
+  @JsonKey(name: 'phone_number')
   String get phoneNumber;
   @override
+  @JsonKey(name: 'is_tos_accepted')
   bool get isTosAccepted;
   @override
+  @JsonKey(name: 'is_offer_notifications_enabled')
   bool get isOfferNotificationsEnabled;
   @override
+  @JsonKey(name: 'is_gps_enabled')
   bool get isGpsEnabled;
   @override
   String get dob;
   @override
+  @JsonKey(name: 'pet_description')
   String get petDescription;
   @override
+  @JsonKey(name: 'pet_audio')
   String get petAudio;
   @override
+  @JsonKey(name: 'qr_code')
   String get qrCode;
   @override
+  @JsonKey(name: 'is_match_notifications_enabled')
   bool get isMatchNotificationsEnabled;
   @override
+  @JsonKey(name: 'is_message_notifications_enabled')
   bool get isMessageNotificationsEnabled;
   @override
+  @JsonKey(name: 'is_position_notifications_enabled')
   bool get isPositionNotificationsEnabled;
   @override
+  @JsonKey(name: 'delete_reason_id')
   String get deleteReasonId;
   @override
+  @JsonKey(name: 'is_suspended')
   bool get isSuspended;
   @override
+  @JsonKey(name: 'owner_gender_id')
   String get ownerGenderId;
   @override
+  @JsonKey(name: 'pet_name')
   String get petName;
   @override
+  @JsonKey(name: 'pet_size')
   String get petSize;
   @override
+  @JsonKey(name: 'pet_weight')
   String get petWeight;
   @override
+  @JsonKey(name: 'breed_id')
   String get breedId;
   @override
+  @JsonKey(name: 'm_breed_id')
   String get mBreedId;
   @override
+  @JsonKey(name: 'f_breed_id')
   String get fBreedId;
   @override
   String get document;
   @override
+  @JsonKey(name: 'pet_gender_id')
   String get petGenderId;
   @override
+  @JsonKey(name: 'is_pet_lost')
   bool get isPetLost;
   @override
+  @JsonKey(name: 'is_sterilized')
   bool get isSterilized;
   @override
+  @JsonKey(name: 'is_deleted')
   bool get isDeleted;
   @override
   @JsonKey(ignore: true)

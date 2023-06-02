@@ -1,4 +1,6 @@
+import 'package:boopee/modal/register_request_model.dart';
 import 'package:boopee/screens/cgu.dart';
+import 'package:boopee/screens/myprofile.dart';
 import 'package:boopee/screens/verify.dart';
 import 'package:boopee/states/auth_states/auth_state.dart';
 import 'package:boopee/states/datasources/auth_datasource.dart';
@@ -72,6 +74,45 @@ class AuthStateProvider extends StateNotifier<AuthState> {
       );
       state = state.copyWith(showLoding: false, errorMessage: e.toString());
       print(e);
+    }
+  }
+
+  Future<bool> registerUser({required BuildContext context}) async {
+    state = state.copyWith(showLoding: true);
+    try {
+      final resp =
+          await _authDatasource.registerUser(RegisterRequestModel.initial());
+      if (resp) {
+        state = state.copyWith(showLoding: false);
+        print("================================================");
+        print("================ User registered successfully ================"
+            .toUpperCase());
+        print("================================================");
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+          return MyProfile();
+        }));
+        return true;
+      } else {
+        state = state.copyWith(showLoding: false);
+        return false;
+      }
+      // final user = await _authDatasource.getCurrentUser();
+      // if (user != null) {
+      //   final request = RegisterRequestModel(
+      //     userId: user.uid,
+      //     phoneNumber: state.phoneNumber,
+      //   );
+      //   final result = await _authDatasource.registerUser(request);
+      //   state = state.copyWith(showLoding: false);
+      //   return result;
+      // } else {
+      //   state = state.copyWith(showLoding: false);
+      //   return false;
+      // }
+    } catch (e) {
+      state = state.copyWith(showLoding: false, errorMessage: e.toString());
+      print(e);
+      return false;
     }
   }
 
