@@ -1,3 +1,4 @@
+import 'package:boopee/screens/cgu.dart';
 import 'package:boopee/screens/verify.dart';
 import 'package:boopee/states/auth_states/auth_state.dart';
 import 'package:boopee/states/datasources/auth_datasource.dart';
@@ -5,7 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod/riverpod.dart';
 
-final authProvider = StateNotifierProvider<AuthStateProvider, AuthState>(
+final authBlocProvider = StateNotifierProvider<AuthStateProvider, AuthState>(
     (ref) => AuthStateProvider());
 
 class AuthStateProvider extends StateNotifier<AuthState> {
@@ -33,7 +34,7 @@ class AuthStateProvider extends StateNotifier<AuthState> {
           state =
               state.copyWith(verificationId: verificationId, showLoding: false);
           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-            return VerifyScreen();
+            return const VerifyScreen();
           }));
         },
         codeAutoRetrievalTimeout: (String verificationId) {
@@ -47,23 +48,32 @@ class AuthStateProvider extends StateNotifier<AuthState> {
     }
   }
 
-  Future<UserCredential?> signInWithOTP(
-      {required String smsCode, required String verificationId}) async {
+  Future<void> signInWithOTP(
+      {required BuildContext context, required String smsCode}) async {
     state = state.copyWith(showLoding: true);
     try {
       final AuthCredential credential = PhoneAuthProvider.credential(
-        verificationId: verificationId,
+        verificationId: state.verificationId,
         smsCode: smsCode,
       );
       final user = await _firebaseAuth.signInWithCredential(credential);
-      state = state.copyWith(showLoding: false);
-      return user;
+      state = state.copyWith(showLoding: false, userId: user.user!.uid);
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+        return CGUScreen();
+      }));
     } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text("Verification code is not correct!"),
+          backgroundColor: Colors.red[400],
+        ),
+      );
       state = state.copyWith(showLoding: false, errorMessage: e.toString());
       print(e);
-      return null;
     }
   }
+
+  Stream<User?> get authStateChanges => _authDatasource.authStateChanges;
 
   Future<User?> getCurrentUser() async {
     return _authDatasource.getCurrentUser();

@@ -11,6 +11,7 @@ _$_AuthState _$$_AuthStateFromJson(Map<String, dynamic> json) => _$_AuthState(
       errorMessage: json['errorMessage'] as String,
       verificationId: json['verificationId'] as String,
       smsCode: json['smsCode'] as String,
+      userId: json['userId'] as String,
     );
 
 Map<String, dynamic> _$$_AuthStateToJson(_$_AuthState instance) =>
@@ -19,4 +20,5 @@ Map<String, dynamic> _$$_AuthStateToJson(_$_AuthState instance) =>
       'errorMessage': instance.errorMessage,
       'verificationId': instance.verificationId,
       'smsCode': instance.smsCode,
+      'userId': instance.userId,
     };
