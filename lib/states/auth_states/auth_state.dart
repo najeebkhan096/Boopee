@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'auth_state.freezed.dart';
@@ -9,6 +8,7 @@ class AuthState with _$AuthState {
   const factory AuthState({
     required bool showLoding,
     required String errorMessage,
+    required String phoneNumber,
     required String verificationId,
     required String smsCode,
     required String userId,
@@ -17,6 +17,7 @@ class AuthState with _$AuthState {
   factory AuthState.initial() => const AuthState(
         showLoding: false,
         errorMessage: "",
+        phoneNumber: "",
         verificationId: "",
         smsCode: "",
         userId: "",

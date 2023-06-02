@@ -31,8 +31,10 @@ class AuthStateProvider extends StateNotifier<AuthState> {
           print(e.message);
         },
         codeSent: (String verificationId, int? resendToken) async {
-          state =
-              state.copyWith(verificationId: verificationId, showLoding: false);
+          state = state.copyWith(
+              verificationId: verificationId,
+              showLoding: false,
+              phoneNumber: phone);
           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
             return const VerifyScreen();
           }));
@@ -59,7 +61,7 @@ class AuthStateProvider extends StateNotifier<AuthState> {
       final user = await _firebaseAuth.signInWithCredential(credential);
       state = state.copyWith(showLoding: false, userId: user.user!.uid);
       Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-        return CGUScreen();
+        return const CGUScreen();
       }));
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(

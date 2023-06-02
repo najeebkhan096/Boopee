@@ -105,3 +105,19 @@ class CGUScreen extends StatelessWidget {
     );
   }
 }
+
+/// first_name
+/// last_name
+/// pseudo
+/// email
+/// phone_number
+/// is_tos_accepted (cgu)
+/// is_offer_notification_enabled (allow_notification)
+/// is_gps_enabled (set_location_service)
+/// dob
+
+/// pet_name
+/// is_sterilized
+/// pet_size
+/// pet_weight
+/// pet_description

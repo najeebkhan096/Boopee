@@ -22,6 +22,7 @@ AuthState _$AuthStateFromJson(Map<String, dynamic> json) {
 mixin _$AuthState {
   bool get showLoding => throw _privateConstructorUsedError;
   String get errorMessage => throw _privateConstructorUsedError;
+  String get phoneNumber => throw _privateConstructorUsedError;
   String get verificationId => throw _privateConstructorUsedError;
   String get smsCode => throw _privateConstructorUsedError;
   String get userId => throw _privateConstructorUsedError;
@@ -40,6 +41,7 @@ abstract class $AuthStateCopyWith<$Res> {
   $Res call(
       {bool showLoding,
       String errorMessage,
+      String phoneNumber,
       String verificationId,
       String smsCode,
       String userId});
@@ -60,6 +62,7 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
   $Res call({
     Object? showLoding = null,
     Object? errorMessage = null,
+    Object? phoneNumber = null,
     Object? verificationId = null,
     Object? smsCode = null,
     Object? userId = null,
@@ -72,6 +75,10 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
       errorMessage: null == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
+      phoneNumber: null == phoneNumber
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
       verificationId: null == verificationId
           ? _value.verificationId
@@ -99,6 +106,7 @@ abstract class _$$_AuthStateCopyWith<$Res> implements $AuthStateCopyWith<$Res> {
   $Res call(
       {bool showLoding,
       String errorMessage,
+      String phoneNumber,
       String verificationId,
       String smsCode,
       String userId});
@@ -117,6 +125,7 @@ class __$$_AuthStateCopyWithImpl<$Res>
   $Res call({
     Object? showLoding = null,
     Object? errorMessage = null,
+    Object? phoneNumber = null,
     Object? verificationId = null,
     Object? smsCode = null,
     Object? userId = null,
@@ -129,6 +138,10 @@ class __$$_AuthStateCopyWithImpl<$Res>
       errorMessage: null == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
+      phoneNumber: null == phoneNumber
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
       verificationId: null == verificationId
           ? _value.verificationId
@@ -152,6 +165,7 @@ class _$_AuthState implements _AuthState {
   const _$_AuthState(
       {required this.showLoding,
       required this.errorMessage,
+      required this.phoneNumber,
       required this.verificationId,
       required this.smsCode,
       required this.userId});
@@ -164,6 +178,8 @@ class _$_AuthState implements _AuthState {
   @override
   final String errorMessage;
   @override
+  final String phoneNumber;
+  @override
   final String verificationId;
   @override
   final String smsCode;
@@ -172,7 +188,7 @@ class _$_AuthState implements _AuthState {
 
   @override
   String toString() {
-    return 'AuthState(showLoding: $showLoding, errorMessage: $errorMessage, verificationId: $verificationId, smsCode: $smsCode, userId: $userId)';
+    return 'AuthState(showLoding: $showLoding, errorMessage: $errorMessage, phoneNumber: $phoneNumber, verificationId: $verificationId, smsCode: $smsCode, userId: $userId)';
   }
 
   @override
@@ -184,6 +200,8 @@ class _$_AuthState implements _AuthState {
                 other.showLoding == showLoding) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
+            (identical(other.phoneNumber, phoneNumber) ||
+                other.phoneNumber == phoneNumber) &&
             (identical(other.verificationId, verificationId) ||
                 other.verificationId == verificationId) &&
             (identical(other.smsCode, smsCode) || other.smsCode == smsCode) &&
@@ -192,8 +210,8 @@ class _$_AuthState implements _AuthState {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, showLoding, errorMessage, verificationId, smsCode, userId);
+  int get hashCode => Object.hash(runtimeType, showLoding, errorMessage,
+      phoneNumber, verificationId, smsCode, userId);
 
   @JsonKey(ignore: true)
   @override
@@ -213,6 +231,7 @@ abstract class _AuthState implements AuthState {
   const factory _AuthState(
       {required final bool showLoding,
       required final String errorMessage,
+      required final String phoneNumber,
       required final String verificationId,
       required final String smsCode,
       required final String userId}) = _$_AuthState;
@@ -224,6 +243,8 @@ abstract class _AuthState implements AuthState {
   bool get showLoding;
   @override
   String get errorMessage;
+  @override
+  String get phoneNumber;
   @override
   String get verificationId;
   @override
