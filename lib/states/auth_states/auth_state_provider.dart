@@ -1,4 +1,3 @@
-import 'package:boopee/modal/register_request_model.dart';
 import 'package:boopee/screens/cgu.dart';
 import 'package:boopee/screens/myprofile.dart';
 import 'package:boopee/screens/verify.dart';
@@ -80,14 +79,14 @@ class AuthStateProvider extends StateNotifier<AuthState> {
   Future<bool> registerUser({required BuildContext context}) async {
     state = state.copyWith(showLoding: true);
     try {
+      final user = await _authDatasource.getCurrentUser();
+      state = state.copyWith(
+          registerRequestModel: state.registerRequestModel!
+              .copyWith(phoneNumber: user!.phoneNumber ?? ""));
       final resp =
-          await _authDatasource.registerUser(RegisterRequestModel.initial());
+          await _authDatasource.registerUser(state.registerRequestModel!);
       if (resp) {
         state = state.copyWith(showLoding: false);
-        print("================================================");
-        print("================ User registered successfully ================"
-            .toUpperCase());
-        print("================================================");
         Navigator.of(context).push(MaterialPageRoute(builder: (context) {
           return MyProfile();
         }));
@@ -96,19 +95,6 @@ class AuthStateProvider extends StateNotifier<AuthState> {
         state = state.copyWith(showLoding: false);
         return false;
       }
-      // final user = await _authDatasource.getCurrentUser();
-      // if (user != null) {
-      //   final request = RegisterRequestModel(
-      //     userId: user.uid,
-      //     phoneNumber: state.phoneNumber,
-      //   );
-      //   final result = await _authDatasource.registerUser(request);
-      //   state = state.copyWith(showLoding: false);
-      //   return result;
-      // } else {
-      //   state = state.copyWith(showLoding: false);
-      //   return false;
-      // }
     } catch (e) {
       state = state.copyWith(showLoding: false, errorMessage: e.toString());
       print(e);
@@ -124,5 +110,64 @@ class AuthStateProvider extends StateNotifier<AuthState> {
 
   Future<void> signOut() async {
     await _authDatasource.signOut();
+  }
+
+  void updateCGU() {
+    state = state.copyWith(
+        registerRequestModel:
+            state.registerRequestModel!.copyWith(isTosAccepted: true));
+  }
+
+  void updateLocation(bool value) {
+    state = state.copyWith(
+        registerRequestModel:
+            state.registerRequestModel!.copyWith(isGpsEnabled: value));
+  }
+
+  void updateNotifications(bool value) {
+    state = state.copyWith(
+        registerRequestModel: state.registerRequestModel!
+            .copyWith(isOfferNotificationsEnabled: value));
+  }
+
+  void updateNames(String firstName, String lastName) {
+    state = state.copyWith(
+        registerRequestModel: state.registerRequestModel!
+            .copyWith(firstName: firstName, lastName: lastName));
+  }
+
+  void updateDOB(String dob) {
+    state = state.copyWith(
+        registerRequestModel: state.registerRequestModel!.copyWith(dob: dob));
+  }
+
+  void updateEmail(String email) {
+    state = state.copyWith(
+        registerRequestModel:
+            state.registerRequestModel!.copyWith(email: email));
+  }
+
+  void updatePetName(String petName) {
+    state = state.copyWith(
+        registerRequestModel:
+            state.registerRequestModel!.copyWith(petName: petName));
+  }
+
+  void updateIsSterilized(bool value) {
+    state = state.copyWith(
+        registerRequestModel:
+            state.registerRequestModel!.copyWith(isSterilized: value));
+  }
+
+  void updatePetWeight(String petWeight) {
+    state = state.copyWith(
+        registerRequestModel:
+            state.registerRequestModel!.copyWith(petWeight: petWeight));
+  }
+
+  void updatePetDescription(String petDescription) {
+    state = state.copyWith(
+        registerRequestModel: state.registerRequestModel!
+            .copyWith(petDescription: petDescription));
   }
 }

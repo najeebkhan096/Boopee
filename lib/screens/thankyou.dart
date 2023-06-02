@@ -12,6 +12,7 @@ class ThankyouScreen extends ConsumerWidget {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
 
+    final authState = ref.watch(authBlocProvider);
     final authProvider = ref.watch(authBlocProvider.notifier);
 
     return Scaffold(
@@ -83,14 +84,20 @@ class ThankyouScreen extends ConsumerWidget {
                         ),
                       ],
                     ),
-                    BlueButton(
-                        text: "Start my journey",
-                        onpress: () {
-                          authProvider.registerUser(context: context);
-                          // Navigator.of(context).push(MaterialPageRoute(builder: (context){
-                          //   return MyProfile();
-                          // }));
-                        }),
+                    if (authState.showLoding)
+                      CircularProgressIndicator(
+                        color: Theme.of(context).primaryColor,
+                        strokeWidth: 2.5,
+                      ),
+                    if (!authState.showLoding)
+                      BlueButton(
+                          text: "Start my journey",
+                          onpress: () {
+                            authProvider.registerUser(context: context);
+                            // Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                            //   return MyProfile();
+                            // }));
+                          }),
                   ],
                 ),
               ),

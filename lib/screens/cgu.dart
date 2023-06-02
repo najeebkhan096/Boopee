@@ -1,13 +1,15 @@
 import 'package:boopee/screens/location.dart';
+import 'package:boopee/states/auth_states/auth_state_provider.dart';
 import 'package:boopee/widgets/button.dart';
 import 'package:boopee/widgets/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CGUScreen extends StatelessWidget {
+class CGUScreen extends ConsumerWidget {
   const CGUScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -86,6 +88,7 @@ class CGUScreen extends StatelessWidget {
                       BlueButton(
                           text: "Accept & continue",
                           onpress: () {
+                            ref.watch(authBlocProvider.notifier).updateCGU();
                             Navigator.of(context)
                                 .push(MaterialPageRoute(builder: (context) {
                               return LocationScreen();

@@ -86,7 +86,8 @@ Widget BuildTextField(
     {required BuildContext? context,
     required String? hint,
     required String label,
-    bool? date}) {
+    bool? date,
+    TextEditingController? controller}) {
   final width = MediaQuery.of(context!).size.width;
   final height = MediaQuery.of(context).size.height;
   return Container(
@@ -98,6 +99,7 @@ Widget BuildTextField(
     padding: EdgeInsets.only(left: width * 0.025, right: width * 0.025),
     margin: EdgeInsets.only(left: width * 0.05, right: width * 0.05),
     child: TextField(
+      controller: controller,
       autofocus: true,
       style: myStyle.inter_1C1B1F(height * 0.016, FontWeight.w400),
       decoration: InputDecoration(
@@ -106,7 +108,10 @@ Widget BuildTextField(
           alignLabelWithHint: true,
           hintStyle: myStyle.inter_A9A29D(height * 0.016, FontWeight.w400),
           labelStyle: myStyle.inter_49454F(height * 0.016, FontWeight.w400),
-          focusedBorder: const OutlineInputBorder(),
+          focusedBorder:
+              const OutlineInputBorder(borderSide: BorderSide(width: 1.2)),
+          enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.grey)),
           border: InputBorder.none,
           labelText: label,
           suffixIcon: date == null

@@ -20,28 +20,25 @@ class AuthDatasource {
     dio.options.headers['Accept'] = 'application/html';
     dio.options.headers['Content-Type'] = 'application/x-www-form-urlencoded';
 
-    print("REQUEST: ${request.toJson()}");
-    print(dio.options.headers.toString());
-
-    // final formData = FormData.fromMap({});
     final formData = FormData.fromMap({
       "first_name": request.firstName,
       "last_name": request.lastName,
-      "pseudo": "${request.firstName}-${request.lastName}",
-      "password": "Test@12345",
+      "pseudo": "${request.firstName}-${request.lastName}".toLowerCase(),
       "email": request.email,
+      "password": "Test@12345",
       "phone_number": request.phoneNumber,
-      "is_tos_accepted": request.isTosAccepted,
-      "is_offer_notification_enabled": request.isOfferNotificationsEnabled,
-      "is_gps_enabled": request.isGpsEnabled,
+      "owner_gender_id": "4e077bee-e841-4cc5-b589-24f6a6607a2d",
+      "pet_gender_id": "39c20123-f12b-4267-80c3-34444fa60b05",
+      "is_tos_accepted": request.isTosAccepted ? "1" : "0",
+      "is_offer_notifications_enabled":
+          request.isOfferNotificationsEnabled ? "1" : "0",
+      "is_gps_enabled": request.isGpsEnabled ? "1" : "0",
       "dob": request.dob,
       "pet_name": request.petName,
-      "is_sterilized": request.isSterilized,
+      "is_sterilized": request.isSterilized ? "1" : "0",
       "pet_size": request.petSize,
       "pet_weight": request.petWeight,
       "pet_description": request.petDescription,
-      "owner_gender_id": "4e077bee-e841-4cc5-b589-24f6a6607a2d",
-      "pet_gender_id": "39c20123-f12b-4267-80c3-34444fa60b05"
     });
 
     final response = await dio.post('https://boopee.lifemoz.com/users/add',
