@@ -1,4 +1,4 @@
-import 'package:boopee/screens/myprofile.dart';
+import 'package:boopee/screens/cgu.dart';
 import 'package:boopee/screens/splash.dart';
 import 'package:boopee/states/auth_states/auth_state_provider.dart';
 import 'package:camera/camera.dart';
@@ -50,8 +50,7 @@ class LandingPage extends ConsumerWidget {
             if (user == null) {
               return const SplashScreen();
             }
-            // return CGUScreen();
-            return MyProfile();
+            return const CGUScreen();
           } else {
             return const Scaffold(
               body: Center(
