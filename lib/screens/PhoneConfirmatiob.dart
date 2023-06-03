@@ -405,6 +405,9 @@ class _PhoneConfirmationState extends ConsumerState<PhoneConfirmation> {
                                                 : TenthScreen(context, ref));
   }
 
+  final TextEditingController petnameController = TextEditingController();
+  final TextEditingController petWeightController = TextEditingController();
+
   Widget HomeScreen(BuildContext context, WidgetRef ref) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
@@ -472,108 +475,96 @@ class _PhoneConfirmationState extends ConsumerState<PhoneConfirmation> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
 
-    final TextEditingController petnameController = TextEditingController();
-
-    return SingleChildScrollView(
-      child: SizedBox(
-        width: width * 1,
-        height: height * 1,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: height * 0.06,
-                ),
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      currentindex = 0;
-                    });
-                  },
+            SizedBox(
+              height: height * 0.06,
+            ),
+            InkWell(
+              onTap: () {
+                setState(() {
+                  currentindex = 0;
+                });
+              },
+              child: Container(
+                margin: EdgeInsets.only(left: width * 0.05),
+                child: CircleAvatar(
+                  radius: 20,
+                  backgroundColor: const Color(0xffD7D3D0),
                   child: Container(
-                    margin: EdgeInsets.only(left: width * 0.05),
-                    child: CircleAvatar(
-                      radius: 20,
-                      backgroundColor: const Color(0xffD7D3D0),
-                      child: Container(
-                          margin: EdgeInsets.only(left: width * 0.015),
-                          child: const Icon(
-                            Icons.arrow_back_ios,
-                            color: Colors.white,
-                            size: 20,
-                          )),
-                    ),
-                  ),
+                      margin: EdgeInsets.only(left: width * 0.015),
+                      child: const Icon(
+                        Icons.arrow_back_ios,
+                        color: Colors.white,
+                        size: 20,
+                      )),
                 ),
-                SizedBox(
-                  height: height * 0.025,
-                ),
-                Container(
-                  margin:
-                      EdgeInsets.only(left: width * 0.075, right: width * 0.05),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: LinearProgressIndicator(
-                        value: 0.05,
-                        minHeight: height * 0.01,
-                        color: mycolor,
-                        backgroundColor: mycolor.withOpacity(0.5)),
-                  ),
-                ),
-                SizedBox(
-                  height: height * 0.025,
-                ),
-                Container(
-                  width: width * 0.5,
-                  margin:
-                      EdgeInsets.only(left: width * 0.075, right: width * 0.05),
-                  child: Text(
-                    "What’s you dog’s name?",
-                    style:
-                        myStyle.poppin_57534E(height * 0.028, FontWeight.w600),
-                  ),
-                ),
-                SizedBox(
-                  height: height * 0.015,
-                ),
-                Container(
-                  margin:
-                      EdgeInsets.only(left: width * 0.075, right: width * 0.05),
-                  child: Text(
-                    "You won’t be able to change this later.",
-                    style:
-                        myStyle.poppin_79716B(height * 0.016, FontWeight.w400),
-                  ),
-                ),
-                SizedBox(
-                  height: height * 0.05,
-                ),
-                BuildTextField(
-                  context: context,
-                  controller: petnameController,
-                  hint: "Scooby",
-                  label: "Dogs name",
-                )
-              ],
+              ),
+            ),
+            SizedBox(
+              height: height * 0.025,
             ),
             Container(
-                margin: EdgeInsets.only(bottom: height * 0.025),
-                child: BlueButton(
-                    text: "Next ->",
-                    onpress: () {
-                      ref
-                          .watch(authBlocProvider.notifier)
-                          .updatePetName(petnameController.text.trim());
-                      setState(() {
-                        currentindex = 2;
-                      });
-                    }))
+              margin: EdgeInsets.only(left: width * 0.075, right: width * 0.05),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: LinearProgressIndicator(
+                    value: 0.05,
+                    minHeight: height * 0.01,
+                    color: mycolor,
+                    backgroundColor: mycolor.withOpacity(0.5)),
+              ),
+            ),
+            SizedBox(
+              height: height * 0.025,
+            ),
+            Container(
+              width: width * 0.5,
+              margin: EdgeInsets.only(left: width * 0.075, right: width * 0.05),
+              child: Text(
+                "What’s you dog’s name?",
+                style: myStyle.poppin_57534E(height * 0.028, FontWeight.w600),
+              ),
+            ),
+            SizedBox(
+              height: height * 0.015,
+            ),
+            Container(
+              margin: EdgeInsets.only(left: width * 0.075, right: width * 0.05),
+              child: Text(
+                "You won’t be able to change this later.",
+                style: myStyle.poppin_79716B(height * 0.016, FontWeight.w400),
+              ),
+            ),
+            SizedBox(
+              height: height * 0.05,
+            ),
+            BuildTextField(
+              context: context,
+              controller: petnameController,
+              hint: "Scooby",
+              label: "Dogs name",
+            )
           ],
         ),
-      ),
+        Container(
+            margin: EdgeInsets.only(bottom: height * 0.025),
+            child: BlueButton(
+                text: "Next ->",
+                onpress: () {
+                  ref
+                      .watch(authBlocProvider.notifier)
+                      .updatePetName(petnameController.text.trim());
+                  setState(() {
+                    currentindex = 2;
+                  });
+                }))
+      ],
     );
   }
 
@@ -821,101 +812,92 @@ class _PhoneConfirmationState extends ConsumerState<PhoneConfirmation> {
   Widget ThirdScreen(BuildContext context, WidgetRef ref) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    return SingleChildScrollView(
-      child: SizedBox(
-        width: width * 1,
-        height: height * 1,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: height * 0.06,
-                ),
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      currentindex = 2;
-                    });
-                  },
+            SizedBox(
+              height: height * 0.06,
+            ),
+            InkWell(
+              onTap: () {
+                setState(() {
+                  currentindex = 2;
+                });
+              },
+              child: Container(
+                margin: EdgeInsets.only(left: width * 0.05),
+                child: CircleAvatar(
+                  radius: 20,
+                  backgroundColor: const Color(0xffD7D3D0),
                   child: Container(
-                    margin: EdgeInsets.only(left: width * 0.05),
-                    child: CircleAvatar(
-                      radius: 20,
-                      backgroundColor: const Color(0xffD7D3D0),
-                      child: Container(
-                          margin: EdgeInsets.only(left: width * 0.015),
-                          child: const Icon(
-                            Icons.arrow_back_ios,
-                            color: Colors.white,
-                            size: 20,
-                          )),
-                    ),
-                  ),
+                      margin: EdgeInsets.only(left: width * 0.015),
+                      child: const Icon(
+                        Icons.arrow_back_ios,
+                        color: Colors.white,
+                        size: 20,
+                      )),
                 ),
-                SizedBox(
-                  height: height * 0.025,
-                ),
-                Container(
-                  margin:
-                      EdgeInsets.only(left: width * 0.075, right: width * 0.05),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: LinearProgressIndicator(
-                        value: 0.2,
-                        minHeight: height * 0.01,
-                        color: mycolor,
-                        backgroundColor: mycolor.withOpacity(0.5)),
-                  ),
-                ),
-                SizedBox(
-                  height: height * 0.025,
-                ),
-                Container(
-                  width: width * 0.7,
-                  margin: EdgeInsets.only(left: width * 0.075),
-                  child: Text(
-                    "What’s you dog’s Birthday?",
-                    style:
-                        myStyle.poppin_57534E(height * 0.028, FontWeight.w600),
-                  ),
-                ),
-                SizedBox(
-                  height: height * 0.015,
-                ),
-                Container(
-                  margin:
-                      EdgeInsets.only(left: width * 0.075, right: width * 0.05),
-                  child: Text(
-                    "This will help us find your dogs age.",
-                    style:
-                        myStyle.poppin_79716B(height * 0.016, FontWeight.w400),
-                  ),
-                ),
-                SizedBox(
-                  height: height * 0.05,
-                ),
-                BuildTextField(
-                    context: context,
-                    label: "Birthday",
-                    hint: "Feb 09, 2023",
-                    date: true),
-              ],
+              ),
+            ),
+            SizedBox(
+              height: height * 0.025,
             ),
             Container(
-                margin: EdgeInsets.only(bottom: height * 0.025),
-                child: BlueButton(
-                    text: "Next ->",
-                    onpress: () {
-                      setState(() {
-                        currentindex = 4;
-                      });
-                    }))
+              margin: EdgeInsets.only(left: width * 0.075, right: width * 0.05),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: LinearProgressIndicator(
+                    value: 0.2,
+                    minHeight: height * 0.01,
+                    color: mycolor,
+                    backgroundColor: mycolor.withOpacity(0.5)),
+              ),
+            ),
+            SizedBox(
+              height: height * 0.025,
+            ),
+            Container(
+              width: width * 0.7,
+              margin: EdgeInsets.only(left: width * 0.075),
+              child: Text(
+                "What’s you dog’s Birthday?",
+                style: myStyle.poppin_57534E(height * 0.028, FontWeight.w600),
+              ),
+            ),
+            SizedBox(
+              height: height * 0.015,
+            ),
+            Container(
+              margin: EdgeInsets.only(left: width * 0.075, right: width * 0.05),
+              child: Text(
+                "This will help us find your dogs age.",
+                style: myStyle.poppin_79716B(height * 0.016, FontWeight.w400),
+              ),
+            ),
+            SizedBox(
+              height: height * 0.05,
+            ),
+            BuildTextField(
+                context: context,
+                label: "Birthday",
+                hint: "Feb 09, 2023",
+                date: true),
           ],
         ),
-      ),
+        Container(
+            margin: EdgeInsets.only(bottom: height * 0.025),
+            child: BlueButton(
+                text: "Next ->",
+                onpress: () {
+                  setState(() {
+                    currentindex = 4;
+                  });
+                }))
+      ],
     );
   }
 
@@ -923,116 +905,108 @@ class _PhoneConfirmationState extends ConsumerState<PhoneConfirmation> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
 
-    final TextEditingController petWeightController = TextEditingController();
-
-    return SingleChildScrollView(
-      child: SizedBox(
-        width: width * 1,
-        height: height * 1,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: height * 0.06,
-                ),
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      currentindex = 3;
-                    });
-                  },
-                  child: Container(
-                    margin: EdgeInsets.only(left: width * 0.05),
-                    child: CircleAvatar(
-                      radius: 20,
-                      backgroundColor: const Color(0xffD7D3D0),
-                      child: Container(
-                          margin: EdgeInsets.only(left: width * 0.015),
-                          child: const Icon(
-                            Icons.arrow_back_ios,
-                            color: Colors.white,
-                            size: 20,
-                          )),
-                    ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              SizedBox(
+                height: height * 0.06,
+              ),
+              InkWell(
+                onTap: () {
+                  setState(() {
+                    currentindex = 3;
+                  });
+                },
+                child: Container(
+                  alignment: Alignment.centerLeft,
+                  margin: EdgeInsets.only(left: width * 0.05),
+                  child: CircleAvatar(
+                    radius: 20,
+                    backgroundColor: const Color(0xffD7D3D0),
+                    child: Container(
+                        margin: EdgeInsets.only(left: width * 0.015),
+                        child: const Icon(
+                          Icons.arrow_back_ios,
+                          color: Colors.white,
+                          size: 20,
+                        )),
                   ),
                 ),
-                SizedBox(
-                  height: height * 0.025,
+              ),
+              SizedBox(height: height * 0.025),
+              Container(
+                margin:
+                    EdgeInsets.only(left: width * 0.075, right: width * 0.05),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: LinearProgressIndicator(
+                      value: 0.25,
+                      minHeight: height * 0.01,
+                      color: mycolor,
+                      backgroundColor: mycolor.withOpacity(0.5)),
                 ),
-                Container(
-                  margin:
-                      EdgeInsets.only(left: width * 0.075, right: width * 0.05),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: LinearProgressIndicator(
-                        value: 0.25,
-                        minHeight: height * 0.01,
-                        color: mycolor,
-                        backgroundColor: mycolor.withOpacity(0.5)),
-                  ),
+              ),
+              SizedBox(
+                height: height * 0.025,
+              ),
+              Container(
+                width: width * 0.7,
+                margin: EdgeInsets.only(left: width * 0.075),
+                child: Text(
+                  "What’s you dog’s size?",
+                  style: myStyle.poppin_57534E(height * 0.028, FontWeight.w600),
                 ),
-                SizedBox(
-                  height: height * 0.025,
+              ),
+              SizedBox(
+                height: height * 0.015,
+              ),
+              Container(
+                margin:
+                    EdgeInsets.only(left: width * 0.075, right: width * 0.05),
+                child: Text(
+                  "This will help us find your dogs age.",
+                  style: myStyle.poppin_79716B(height * 0.016, FontWeight.w400),
                 ),
-                Container(
-                  width: width * 0.7,
-                  margin: EdgeInsets.only(left: width * 0.075),
-                  child: Text(
-                    "What’s you dog’s size?",
-                    style:
-                        myStyle.poppin_57534E(height * 0.028, FontWeight.w600),
-                  ),
-                ),
-                SizedBox(
-                  height: height * 0.015,
-                ),
-                Container(
-                  margin:
-                      EdgeInsets.only(left: width * 0.075, right: width * 0.05),
-                  child: Text(
-                    "This will help us find your dogs age.",
-                    style:
-                        myStyle.poppin_79716B(height * 0.016, FontWeight.w400),
-                  ),
-                ),
-                SizedBox(
-                  height: height * 0.05,
-                ),
-                BuildTextField(
-                    context: context,
-                    controller: petWeightController,
-                    label: "Dog’s Weight",
-                    hint: "Enter you dog’s weight",
-                    date: false),
-                SizedBox(
-                  height: height * 0.05,
-                ),
-                CustomDropdownButton(
-                  value: choice,
-                  labelText: 'Size of the dog',
-                  items: const ["a", "b", "c"],
-                  onChanged: (val) {},
-                )
-              ],
-            ),
-            Container(
-                margin: EdgeInsets.only(bottom: height * 0.025),
-                child: BlueButton(
-                    text: "Next ->",
-                    onpress: () {
-                      ref
-                          .watch(authBlocProvider.notifier)
-                          .updatePetWeight(petWeightController.text.trim());
-                      setState(() {
-                        currentindex = 5;
-                      });
-                    }))
-          ],
+              ),
+              SizedBox(
+                height: height * 0.05,
+              ),
+              BuildTextField(
+                  context: context,
+                  controller: petWeightController,
+                  label: "Dog’s Weight",
+                  hint: "Enter you dog’s weight",
+                  date: false),
+              SizedBox(
+                height: height * 0.05,
+              ),
+              CustomDropdownButton(
+                value: choice,
+                labelText: 'Size of the dog',
+                items: const ["a", "b", "c"],
+                onChanged: (val) {},
+              ),
+              SizedBox(height: height * 0.025),
+            ],
+          ),
         ),
-      ),
+        Container(
+            margin: EdgeInsets.only(bottom: height * 0.025),
+            child: BlueButton(
+                text: "Next ->",
+                onpress: () {
+                  ref
+                      .watch(authBlocProvider.notifier)
+                      .updatePetWeight(petWeightController.text.trim());
+                  setState(() {
+                    currentindex = 5;
+                  });
+                }))
+      ],
     );
   }
 
