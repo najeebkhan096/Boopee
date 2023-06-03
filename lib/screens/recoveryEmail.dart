@@ -88,6 +88,15 @@ class RecoveryEmailScreen extends ConsumerWidget {
                     BlueButton(
                         text: "Next ->",
                         onpress: () {
+                          if (_emailController.text.trim().isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content: const Text(
+                                    "Please enter your recovery email"),
+                                duration: const Duration(milliseconds: 800),
+                                backgroundColor: Colors.red[400]));
+                            return;
+                          }
+
                           ref
                               .watch(authBlocProvider.notifier)
                               .updateEmail(_emailController.text.trim());

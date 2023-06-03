@@ -557,6 +557,14 @@ class _PhoneConfirmationState extends ConsumerState<PhoneConfirmation> {
             child: BlueButton(
                 text: "Next ->",
                 onpress: () {
+                  if (petnameController.text.trim().isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: const Text("Please enter your pet name!"),
+                        duration: const Duration(milliseconds: 800),
+                        backgroundColor: Colors.red[400]));
+                    return;
+                  }
+
                   ref
                       .watch(authBlocProvider.notifier)
                       .updatePetName(petnameController.text.trim());
@@ -932,6 +940,14 @@ class _PhoneConfirmationState extends ConsumerState<PhoneConfirmation> {
             child: BlueButton(
                 text: "Next ->",
                 onpress: () {
+                  if (authState.petDob.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: const Text(
+                            "Please select your pet's date of birth!"),
+                        duration: const Duration(milliseconds: 800),
+                        backgroundColor: Colors.red[400]));
+                    return;
+                  }
                   setState(() {
                     currentindex = 4;
                   });
@@ -1038,6 +1054,14 @@ class _PhoneConfirmationState extends ConsumerState<PhoneConfirmation> {
             child: BlueButton(
                 text: "Next ->",
                 onpress: () {
+                  if (petWeightController.text.trim().isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: const Text("Please enter your pet's weight!"),
+                        duration: const Duration(milliseconds: 800),
+                        backgroundColor: Colors.red[400]));
+                    return;
+                  }
+
                   ref
                       .watch(authBlocProvider.notifier)
                       .updatePetWeight(petWeightController.text.trim());
@@ -1953,6 +1977,15 @@ class _PhoneConfirmationState extends ConsumerState<PhoneConfirmation> {
                             ? desc = all['text'].toString()
                             : desc = "$desc,${all['text']}";
                       }
+                    }
+
+                    if (desc.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: const Text(
+                              "Please select any one to describe your dog!"),
+                          duration: const Duration(milliseconds: 800),
+                          backgroundColor: Colors.red[400]));
+                      return;
                     }
 
                     ref

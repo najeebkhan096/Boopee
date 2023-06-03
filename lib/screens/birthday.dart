@@ -135,6 +135,14 @@ class BirthDayScreen extends ConsumerWidget {
                     BlueButton(
                         text: "Next ->",
                         onpress: () {
+                          if (authState.registerRequestModel!.dob.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content: const Text(
+                                    "Please select the date of birth!"),
+                                duration: const Duration(milliseconds: 800),
+                                backgroundColor: Colors.red[400]));
+                            return;
+                          }
                           Navigator.of(context)
                               .push(MaterialPageRoute(builder: (context) {
                             return RecoveryEmailScreen();

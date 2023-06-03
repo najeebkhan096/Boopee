@@ -1,4 +1,5 @@
 import 'package:boopee/screens/gender.dart';
+import 'package:boopee/states/auth_states/auth_state.dart';
 import 'package:boopee/states/auth_states/auth_state_provider.dart';
 import 'package:boopee/widgets/button.dart';
 import 'package:boopee/widgets/constants.dart';
@@ -15,6 +16,9 @@ class UsernameScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+
+    final AuthState authState = ref.watch(authBlocProvider);
+
     return Scaffold(
       body: SizedBox(
         width: width * 1,
@@ -95,6 +99,15 @@ class UsernameScreen extends ConsumerWidget {
                     BlueButton(
                         text: "Next ->",
                         onpress: () {
+                          if (_firstnameController.text.trim().isEmpty ||
+                              _lastnameController.text.trim().isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content: const Text(
+                                    "Please fill the required fields"),
+                                duration: const Duration(milliseconds: 800),
+                                backgroundColor: Colors.red[400]));
+                            return;
+                          }
                           ref.watch(authBlocProvider.notifier).updateNames(
                               _firstnameController.text.trim(),
                               _lastnameController.text.trim());
