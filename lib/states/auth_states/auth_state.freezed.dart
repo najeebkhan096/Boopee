@@ -28,6 +28,7 @@ mixin _$AuthState {
   String get userId => throw _privateConstructorUsedError;
   RegisterRequestModel? get registerRequestModel =>
       throw _privateConstructorUsedError;
+  String get petDob => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -47,7 +48,8 @@ abstract class $AuthStateCopyWith<$Res> {
       String verificationId,
       String smsCode,
       String userId,
-      RegisterRequestModel? registerRequestModel});
+      RegisterRequestModel? registerRequestModel,
+      String petDob});
 
   $RegisterRequestModelCopyWith<$Res>? get registerRequestModel;
 }
@@ -72,6 +74,7 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
     Object? smsCode = null,
     Object? userId = null,
     Object? registerRequestModel = freezed,
+    Object? petDob = null,
   }) {
     return _then(_value.copyWith(
       showLoding: null == showLoding
@@ -102,6 +105,10 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
           ? _value.registerRequestModel
           : registerRequestModel // ignore: cast_nullable_to_non_nullable
               as RegisterRequestModel?,
+      petDob: null == petDob
+          ? _value.petDob
+          : petDob // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 
@@ -133,7 +140,8 @@ abstract class _$$_AuthStateCopyWith<$Res> implements $AuthStateCopyWith<$Res> {
       String verificationId,
       String smsCode,
       String userId,
-      RegisterRequestModel? registerRequestModel});
+      RegisterRequestModel? registerRequestModel,
+      String petDob});
 
   @override
   $RegisterRequestModelCopyWith<$Res>? get registerRequestModel;
@@ -157,6 +165,7 @@ class __$$_AuthStateCopyWithImpl<$Res>
     Object? smsCode = null,
     Object? userId = null,
     Object? registerRequestModel = freezed,
+    Object? petDob = null,
   }) {
     return _then(_$_AuthState(
       showLoding: null == showLoding
@@ -187,6 +196,10 @@ class __$$_AuthStateCopyWithImpl<$Res>
           ? _value.registerRequestModel
           : registerRequestModel // ignore: cast_nullable_to_non_nullable
               as RegisterRequestModel?,
+      petDob: null == petDob
+          ? _value.petDob
+          : petDob // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -201,7 +214,8 @@ class _$_AuthState implements _AuthState {
       required this.verificationId,
       required this.smsCode,
       required this.userId,
-      required this.registerRequestModel});
+      required this.registerRequestModel,
+      required this.petDob});
 
   factory _$_AuthState.fromJson(Map<String, dynamic> json) =>
       _$$_AuthStateFromJson(json);
@@ -220,10 +234,12 @@ class _$_AuthState implements _AuthState {
   final String userId;
   @override
   final RegisterRequestModel? registerRequestModel;
+  @override
+  final String petDob;
 
   @override
   String toString() {
-    return 'AuthState(showLoding: $showLoding, errorMessage: $errorMessage, phoneNumber: $phoneNumber, verificationId: $verificationId, smsCode: $smsCode, userId: $userId, registerRequestModel: $registerRequestModel)';
+    return 'AuthState(showLoding: $showLoding, errorMessage: $errorMessage, phoneNumber: $phoneNumber, verificationId: $verificationId, smsCode: $smsCode, userId: $userId, registerRequestModel: $registerRequestModel, petDob: $petDob)';
   }
 
   @override
@@ -242,13 +258,22 @@ class _$_AuthState implements _AuthState {
             (identical(other.smsCode, smsCode) || other.smsCode == smsCode) &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.registerRequestModel, registerRequestModel) ||
-                other.registerRequestModel == registerRequestModel));
+                other.registerRequestModel == registerRequestModel) &&
+            (identical(other.petDob, petDob) || other.petDob == petDob));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, showLoding, errorMessage,
-      phoneNumber, verificationId, smsCode, userId, registerRequestModel);
+  int get hashCode => Object.hash(
+      runtimeType,
+      showLoding,
+      errorMessage,
+      phoneNumber,
+      verificationId,
+      smsCode,
+      userId,
+      registerRequestModel,
+      petDob);
 
   @JsonKey(ignore: true)
   @override
@@ -266,14 +291,14 @@ class _$_AuthState implements _AuthState {
 
 abstract class _AuthState implements AuthState {
   const factory _AuthState(
-          {required final bool showLoding,
-          required final String errorMessage,
-          required final String phoneNumber,
-          required final String verificationId,
-          required final String smsCode,
-          required final String userId,
-          required final RegisterRequestModel? registerRequestModel}) =
-      _$_AuthState;
+      {required final bool showLoding,
+      required final String errorMessage,
+      required final String phoneNumber,
+      required final String verificationId,
+      required final String smsCode,
+      required final String userId,
+      required final RegisterRequestModel? registerRequestModel,
+      required final String petDob}) = _$_AuthState;
 
   factory _AuthState.fromJson(Map<String, dynamic> json) =
       _$_AuthState.fromJson;
@@ -292,6 +317,8 @@ abstract class _AuthState implements AuthState {
   String get userId;
   @override
   RegisterRequestModel? get registerRequestModel;
+  @override
+  String get petDob;
   @override
   @JsonKey(ignore: true)
   _$$_AuthStateCopyWith<_$_AuthState> get copyWith =>

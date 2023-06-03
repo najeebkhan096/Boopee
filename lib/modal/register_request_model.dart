@@ -52,7 +52,7 @@ class RegisterRequestModel with _$RegisterRequestModel {
         isTosAccepted: true,
         isOfferNotificationsEnabled: true,
         isGpsEnabled: true,
-        dob: '2023-06-02',
+        dob: '',
         petDescription: '',
         petAudio: '',
         qrCode: '',

@@ -14,6 +14,7 @@ class AuthState with _$AuthState {
     required String smsCode,
     required String userId,
     required RegisterRequestModel? registerRequestModel,
+    required String petDob,
   }) = _AuthState;
 
   factory AuthState.initial() => AuthState(
@@ -24,6 +25,7 @@ class AuthState with _$AuthState {
         smsCode: "",
         userId: "",
         registerRequestModel: RegisterRequestModel.initial(),
+        petDob: "",
       );
 
   factory AuthState.fromJson(Map<String, dynamic> json) =>

@@ -153,6 +153,10 @@ class AuthStateProvider extends StateNotifier<AuthState> {
             state.registerRequestModel!.copyWith(petName: petName));
   }
 
+  void updatePetDOB(String dob) {
+    state = state.copyWith(petDob: dob);
+  }
+
   void updateIsSterilized(bool value) {
     state = state.copyWith(
         registerRequestModel:

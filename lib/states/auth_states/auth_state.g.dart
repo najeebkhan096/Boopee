@@ -17,6 +17,7 @@ _$_AuthState _$$_AuthStateFromJson(Map<String, dynamic> json) => _$_AuthState(
           ? null
           : RegisterRequestModel.fromJson(
               json['registerRequestModel'] as Map<String, dynamic>),
+      petDob: json['petDob'] as String,
     );
 
 Map<String, dynamic> _$$_AuthStateToJson(_$_AuthState instance) =>
@@ -28,4 +29,5 @@ Map<String, dynamic> _$$_AuthStateToJson(_$_AuthState instance) =>
       'smsCode': instance.smsCode,
       'userId': instance.userId,
       'registerRequestModel': instance.registerRequestModel,
+      'petDob': instance.petDob,
     };
