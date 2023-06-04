@@ -378,6 +378,18 @@ class _PhoneConfirmationState extends ConsumerState<PhoneConfirmation> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    characterList = (ref.read(authBlocProvider).petTags != null
+            ? ref.read(authBlocProvider).petTags!.data
+            : [])
+        .map((e) => e.name)
+        .toList()
+        .map((e) => {"text": e, "status": false})
+        .toList();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;

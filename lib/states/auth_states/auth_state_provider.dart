@@ -102,6 +102,19 @@ class AuthStateProvider extends StateNotifier<AuthState> {
     }
   }
 
+  Future<bool> getPetTags() async {
+    state = state.copyWith(showLoding: true);
+    try {
+      final resp = await _authDatasource.getPetTags();
+      state = state.copyWith(showLoding: false, petTags: resp);
+      return true;
+    } catch (e) {
+      state = state.copyWith(showLoding: false, errorMessage: e.toString());
+      print(e);
+      return false;
+    }
+  }
+
   Stream<User?> get authStateChanges => _authDatasource.authStateChanges;
 
   Future<User?> getCurrentUser() async {

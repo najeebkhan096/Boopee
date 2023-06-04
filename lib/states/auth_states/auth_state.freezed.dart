@@ -29,6 +29,7 @@ mixin _$AuthState {
   RegisterRequestModel? get registerRequestModel =>
       throw _privateConstructorUsedError;
   String get petDob => throw _privateConstructorUsedError;
+  PetTags? get petTags => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -49,7 +50,8 @@ abstract class $AuthStateCopyWith<$Res> {
       String smsCode,
       String userId,
       RegisterRequestModel? registerRequestModel,
-      String petDob});
+      String petDob,
+      PetTags? petTags});
 
   $RegisterRequestModelCopyWith<$Res>? get registerRequestModel;
 }
@@ -75,6 +77,7 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
     Object? userId = null,
     Object? registerRequestModel = freezed,
     Object? petDob = null,
+    Object? petTags = freezed,
   }) {
     return _then(_value.copyWith(
       showLoding: null == showLoding
@@ -109,6 +112,10 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
           ? _value.petDob
           : petDob // ignore: cast_nullable_to_non_nullable
               as String,
+      petTags: freezed == petTags
+          ? _value.petTags
+          : petTags // ignore: cast_nullable_to_non_nullable
+              as PetTags?,
     ) as $Val);
   }
 
@@ -141,7 +148,8 @@ abstract class _$$_AuthStateCopyWith<$Res> implements $AuthStateCopyWith<$Res> {
       String smsCode,
       String userId,
       RegisterRequestModel? registerRequestModel,
-      String petDob});
+      String petDob,
+      PetTags? petTags});
 
   @override
   $RegisterRequestModelCopyWith<$Res>? get registerRequestModel;
@@ -166,6 +174,7 @@ class __$$_AuthStateCopyWithImpl<$Res>
     Object? userId = null,
     Object? registerRequestModel = freezed,
     Object? petDob = null,
+    Object? petTags = freezed,
   }) {
     return _then(_$_AuthState(
       showLoding: null == showLoding
@@ -200,6 +209,10 @@ class __$$_AuthStateCopyWithImpl<$Res>
           ? _value.petDob
           : petDob // ignore: cast_nullable_to_non_nullable
               as String,
+      petTags: freezed == petTags
+          ? _value.petTags
+          : petTags // ignore: cast_nullable_to_non_nullable
+              as PetTags?,
     ));
   }
 }
@@ -215,7 +228,8 @@ class _$_AuthState implements _AuthState {
       required this.smsCode,
       required this.userId,
       required this.registerRequestModel,
-      required this.petDob});
+      required this.petDob,
+      required this.petTags});
 
   factory _$_AuthState.fromJson(Map<String, dynamic> json) =>
       _$$_AuthStateFromJson(json);
@@ -236,10 +250,12 @@ class _$_AuthState implements _AuthState {
   final RegisterRequestModel? registerRequestModel;
   @override
   final String petDob;
+  @override
+  final PetTags? petTags;
 
   @override
   String toString() {
-    return 'AuthState(showLoding: $showLoding, errorMessage: $errorMessage, phoneNumber: $phoneNumber, verificationId: $verificationId, smsCode: $smsCode, userId: $userId, registerRequestModel: $registerRequestModel, petDob: $petDob)';
+    return 'AuthState(showLoding: $showLoding, errorMessage: $errorMessage, phoneNumber: $phoneNumber, verificationId: $verificationId, smsCode: $smsCode, userId: $userId, registerRequestModel: $registerRequestModel, petDob: $petDob, petTags: $petTags)';
   }
 
   @override
@@ -259,7 +275,8 @@ class _$_AuthState implements _AuthState {
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.registerRequestModel, registerRequestModel) ||
                 other.registerRequestModel == registerRequestModel) &&
-            (identical(other.petDob, petDob) || other.petDob == petDob));
+            (identical(other.petDob, petDob) || other.petDob == petDob) &&
+            (identical(other.petTags, petTags) || other.petTags == petTags));
   }
 
   @JsonKey(ignore: true)
@@ -273,7 +290,8 @@ class _$_AuthState implements _AuthState {
       smsCode,
       userId,
       registerRequestModel,
-      petDob);
+      petDob,
+      petTags);
 
   @JsonKey(ignore: true)
   @override
@@ -298,7 +316,8 @@ abstract class _AuthState implements AuthState {
       required final String smsCode,
       required final String userId,
       required final RegisterRequestModel? registerRequestModel,
-      required final String petDob}) = _$_AuthState;
+      required final String petDob,
+      required final PetTags? petTags}) = _$_AuthState;
 
   factory _AuthState.fromJson(Map<String, dynamic> json) =
       _$_AuthState.fromJson;
@@ -319,6 +338,8 @@ abstract class _AuthState implements AuthState {
   RegisterRequestModel? get registerRequestModel;
   @override
   String get petDob;
+  @override
+  PetTags? get petTags;
   @override
   @JsonKey(ignore: true)
   _$$_AuthStateCopyWith<_$_AuthState> get copyWith =>

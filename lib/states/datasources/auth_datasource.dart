@@ -1,3 +1,4 @@
+import 'package:boopee/modal/pet_tags_model.dart';
 import 'package:boopee/modal/register_request_model.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -55,5 +56,17 @@ class AuthDatasource {
     } else {
       return false;
     }
+  }
+
+  Future<PetTags> getPetTags() async {
+    final dio = Dio();
+    dio.options.headers['Accept'] = 'application/json';
+
+    final response = await dio.get('https://boopee.lifemoz.com/api/pettags');
+
+    print(response.data);
+    final result = PetTags.fromJson(response.data);
+
+    return result;
   }
 }

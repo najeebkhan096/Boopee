@@ -1,3 +1,4 @@
+import 'package:boopee/modal/pet_tags_model.dart';
 import 'package:boopee/modal/register_request_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -15,6 +16,7 @@ class AuthState with _$AuthState {
     required String userId,
     required RegisterRequestModel? registerRequestModel,
     required String petDob,
+    required PetTags? petTags,
   }) = _AuthState;
 
   factory AuthState.initial() => AuthState(
@@ -26,6 +28,7 @@ class AuthState with _$AuthState {
         userId: "",
         registerRequestModel: RegisterRequestModel.initial(),
         petDob: "",
+        petTags: null,
       );
 
   factory AuthState.fromJson(Map<String, dynamic> json) =>

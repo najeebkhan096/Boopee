@@ -1,4 +1,4 @@
-import 'package:boopee/screens/cgu.dart';
+import 'package:boopee/screens/confirm_email.dart';
 import 'package:boopee/screens/splash.dart';
 import 'package:boopee/states/auth_states/auth_state_provider.dart';
 import 'package:camera/camera.dart';
@@ -50,7 +50,8 @@ class LandingPage extends ConsumerWidget {
             if (user == null) {
               return const SplashScreen();
             }
-            return const CGUScreen();
+            // return const CGUScreen();
+            return ConfirmEmailScreen();
           } else {
             return const Scaffold(
               body: Center(
