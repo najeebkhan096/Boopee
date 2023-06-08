@@ -4,6 +4,7 @@ import 'package:boopee/widgets/button.dart';
 import 'package:boopee/widgets/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class LocationScreen extends ConsumerWidget {
   const LocationScreen({super.key});
@@ -96,13 +97,17 @@ class LocationScreen extends ConsumerWidget {
                       ),
                       BlueButton(
                           text: "Set location services",
-                          onpress: () {
+                          onpress: () async {
+                            final status = await Permission.location.status;
+                            if (status.isDenied) {
+                              await Permission.location.request();
+                            }
                             ref
                                 .watch(authBlocProvider.notifier)
                                 .updateLocation(true);
                             Navigator.of(context)
                                 .push(MaterialPageRoute(builder: (context) {
-                              return NotificationScreen();
+                              return const NotificationScreen();
                             }));
                           }),
                       SizedBox(
@@ -115,7 +120,7 @@ class LocationScreen extends ConsumerWidget {
                               .updateLocation(false);
                           Navigator.of(context)
                               .push(MaterialPageRoute(builder: (context) {
-                            return NotificationScreen();
+                            return const NotificationScreen();
                           }));
                         },
                         child: Center(

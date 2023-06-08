@@ -4,6 +4,7 @@ import 'package:boopee/widgets/button.dart';
 import 'package:boopee/widgets/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class NotificationScreen extends ConsumerWidget {
   const NotificationScreen({super.key});
@@ -95,7 +96,11 @@ class NotificationScreen extends ConsumerWidget {
                       ),
                       BlueButton(
                           text: "Allow notifications",
-                          onpress: () {
+                          onpress: () async {
+                            final status = await Permission.notification.status;
+                            if (status.isDenied) {
+                              await Permission.notification.request();
+                            }
                             ref
                                 .watch(authBlocProvider.notifier)
                                 .updateNotifications(true);

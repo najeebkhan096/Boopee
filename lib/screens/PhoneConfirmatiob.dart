@@ -12,6 +12,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_sound/flutter_sound.dart';
 import 'package:image_picker/image_picker.dart';
 
 class PhoneConfirmation extends ConsumerStatefulWidget {
@@ -125,6 +126,119 @@ class _PhoneConfirmationState extends ConsumerState<PhoneConfirmation> {
   // ];
 
   TextEditingController search = TextEditingController();
+
+  void _petRaceBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+      enableDrag: true,
+      builder: (BuildContext context) {
+        final height = MediaQuery.of(context).size.height;
+        final width = MediaQuery.of(context).size.width;
+        return StatefulBuilder(builder: (ctx, mystate) {
+          return Container(
+            height: height * 1,
+            decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20))),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: height * 0.025,
+                ),
+                Text(
+                  'What’s your dog’s race?',
+                  style: myStyle.poppin_57534E(height * 0.02, FontWeight.w400),
+                ),
+                SizedBox(
+                  height: height * 0.025,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: const Color(0xffA0A0AB).withOpacity(0.2)),
+                  margin:
+                      EdgeInsets.only(left: width * 0.05, right: width * 0.05),
+                  padding: EdgeInsets.only(right: width * 0.05),
+                  child: TextField(
+                    controller: search,
+                    onChanged: (val) {
+                      if (val.isEmpty) {
+                        searchedgogs = dogBreeds;
+                        mystate(() {});
+                      } else {
+                        searchedgogs = dogBreeds
+                            .where((element) => element
+                                .toUpperCase()
+                                .contains(val.toUpperCase()))
+                            .toList();
+                        mystate(() {});
+                      }
+                    },
+                    decoration: InputDecoration(
+                      hintText: "search for your dog’s race..",
+                      prefixIcon: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            "images/search.png",
+                            height: height * 0.025,
+                          ),
+                        ],
+                      ),
+                      hintStyle:
+                          myStyle.inter_A9A29D(height * 0.016, FontWeight.w400),
+                      labelStyle:
+                          myStyle.inter_49454F(height * 0.016, FontWeight.w400),
+                      border: InputBorder.none,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: height * 0.025,
+                ),
+                Expanded(
+                  child: ListView(
+                    children: List.generate(
+                        searchedgogs.length,
+                        (index) => InkWell(
+                              onTap: () {
+                                setState(() {
+                                  // asdd
+                                  petBreed = searchedgogs[index];
+                                  final bID = allDogBreeds
+                                      .firstWhere(
+                                          (element) => element.name == petBreed)
+                                      .id;
+                                  ref
+                                      .watch(authBlocProvider.notifier)
+                                      .updatePetBreedID(bID);
+                                });
+                                search.clear();
+                                Navigator.of(context).pop();
+                              },
+                              child: Container(
+                                margin: EdgeInsets.only(
+                                    left: width * 0.05, bottom: height * 0.015),
+                                child: Text(
+                                  searchedgogs[index],
+                                  style: myStyle.inter_424242(
+                                      height * 0.016, FontWeight.w400),
+                                ),
+                              ),
+                            )),
+                  ),
+                )
+              ],
+            ),
+          );
+        });
+      },
+    );
+  }
 
   void _mothershowBottomSheet() {
     showModalBottomSheet(
@@ -1422,9 +1536,25 @@ class _PhoneConfirmationState extends ConsumerState<PhoneConfirmation> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const CircleAvatar(
-                      radius: 35,
-                      backgroundColor: Color(0xffEAEAEA),
+                    GestureDetector(
+                      onTap: () {
+                        //record audio for 10 seconds
+                        FlutterSoundRecorder().openRecorder().then((value) {
+                          FlutterSoundRecorder().startRecorder(
+                              toFile: "pet_audio.mp4",
+                              codec: Codec.aacADTS,
+                              sampleRate: 44100,
+                              bitRate: 192000,
+                              numChannels: 2);
+                        });
+                        Future.delayed(const Duration(seconds: 10), () {
+                          FlutterSoundRecorder().stopRecorder();
+                        });
+                      },
+                      child: const CircleAvatar(
+                        radius: 35,
+                        backgroundColor: Color(0xffEAEAEA),
+                      ),
                     ),
                     SizedBox(
                       height: height * 0.01,
@@ -1732,6 +1862,7 @@ class _PhoneConfirmationState extends ConsumerState<PhoneConfirmation> {
     );
   }
 
+  String? petBreed;
   String? mother;
   String? father;
   bool mixed = false;
@@ -1854,18 +1985,25 @@ class _PhoneConfirmationState extends ConsumerState<PhoneConfirmation> {
                         right: width * 0.05,
                         bottom: height * 0.015),
                     child: ListTile(
-                        onTap: () {},
+                        onTap: () {
+                          // _mothershowBottomSheet();
+
+                          _petRaceBottomSheet();
+                        },
                         title: Text(
-                          "Race (Selected race)",
+                          (ref
+                                          .watch(authBlocProvider)
+                                          .registerRequestModel
+                                          ?.breedId ??
+                                      "")
+                                  .isEmpty
+                              ? "Race (Selected race)"
+                              : petBreed ?? "",
                           style: myStyle.inter_44403C(
                               height * 0.016, FontWeight.w600),
                         ),
-                        trailing: CircleAvatar(
-                          radius: 10,
-                          backgroundColor: mycolor,
-                          child: const Center(
-                              child: Icon(Icons.done,
-                                  color: Colors.white, size: 13)),
+                        trailing: const Icon(
+                          Icons.expand_more_outlined,
                         ))),
               if (mixed)
                 Card(

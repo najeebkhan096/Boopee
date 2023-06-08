@@ -211,6 +211,12 @@ class AuthStateProvider extends StateNotifier<AuthState> {
             .copyWith(petDescription: petDescription));
   }
 
+  void updatePetBreedID(String breedId) {
+    state = state.copyWith(
+        registerRequestModel:
+            state.registerRequestModel!.copyWith(breedId: breedId));
+  }
+
   void updatePetMotherBreedID(String mBreedId) {
     state = state.copyWith(
         registerRequestModel:
