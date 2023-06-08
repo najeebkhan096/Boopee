@@ -115,6 +115,19 @@ class AuthStateProvider extends StateNotifier<AuthState> {
     }
   }
 
+  Future<bool> getPetBreeds() async {
+    state = state.copyWith(showLoding: true);
+    try {
+      final resp = await _authDatasource.getPetBreeds();
+      state = state.copyWith(showLoding: false, petBreeds: resp);
+      return true;
+    } catch (e) {
+      state = state.copyWith(showLoding: false, errorMessage: e.toString());
+      print(e);
+      return false;
+    }
+  }
+
   Stream<User?> get authStateChanges => _authDatasource.authStateChanges;
 
   Future<User?> getCurrentUser() async {
@@ -123,6 +136,10 @@ class AuthStateProvider extends StateNotifier<AuthState> {
 
   Future<void> signOut() async {
     await _authDatasource.signOut();
+  }
+
+  void updateShowLoading(bool value) {
+    state = state.copyWith(showLoding: value);
   }
 
   void updateCGU() {
@@ -170,6 +187,12 @@ class AuthStateProvider extends StateNotifier<AuthState> {
     state = state.copyWith(petDob: dob);
   }
 
+  void updatePetPhoto(String petPhoto) {
+    state = state.copyWith(
+        registerRequestModel:
+            state.registerRequestModel!.copyWith(petPhoto: petPhoto));
+  }
+
   void updateIsSterilized(bool value) {
     state = state.copyWith(
         registerRequestModel:
@@ -186,5 +209,17 @@ class AuthStateProvider extends StateNotifier<AuthState> {
     state = state.copyWith(
         registerRequestModel: state.registerRequestModel!
             .copyWith(petDescription: petDescription));
+  }
+
+  void updatePetMotherBreedID(String mBreedId) {
+    state = state.copyWith(
+        registerRequestModel:
+            state.registerRequestModel!.copyWith(mBreedId: mBreedId));
+  }
+
+  void updatePetFatherBreedID(String fBreedId) {
+    state = state.copyWith(
+        registerRequestModel:
+            state.registerRequestModel!.copyWith(fBreedId: fBreedId));
   }
 }

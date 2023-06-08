@@ -85,46 +85,47 @@ class BirthDayScreen extends ConsumerWidget {
                         //     label: "Birthday",
                         //     hint: "Feb 09, 2023",
                         //     date: true),
-                        Container(
-                          margin: EdgeInsets.only(
-                              left: width * 0.075, right: width * 0.05),
-                          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                          height: 52.0,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black),
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          alignment: Alignment.centerLeft,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                authState.registerRequestModel!.dob.isEmpty
-                                    ? "Select date for birth"
-                                    : authState.registerRequestModel!.dob,
-                                style: myStyle.poppin_57534E(
-                                    16.0, FontWeight.w100),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  showDatePicker(
-                                          context: context,
-                                          initialDate: DateTime.now(),
-                                          firstDate: DateTime(1900),
-                                          lastDate: DateTime(2100))
-                                      .then((value) {
-                                    if (value != null) {
-                                      authProvider.updateDOB(
-                                          "${value.day.toString().padLeft(2, "0")}/${value.month.toString().padLeft(2, "0")}/${value.year}");
-                                    }
-                                  });
-                                },
-                                child: Image.asset(
+                        GestureDetector(
+                          onTap: () {
+                            showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(1900),
+                                    lastDate: DateTime(2100))
+                                .then((value) {
+                              if (value != null) {
+                                authProvider.updateDOB(
+                                    "${value.day.toString().padLeft(2, "0")}/${value.month.toString().padLeft(2, "0")}/${value.year}");
+                              }
+                            });
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(
+                                left: width * 0.075, right: width * 0.05),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 15.0),
+                            height: 52.0,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            alignment: Alignment.centerLeft,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  authState.registerRequestModel!.dob.isEmpty
+                                      ? "Select date for birth"
+                                      : authState.registerRequestModel!.dob,
+                                  style: myStyle.poppin_57534E(
+                                      16.0, FontWeight.w100),
+                                ),
+                                Image.asset(
                                   "images/calender.png",
                                   height: height * 0.025,
-                                ),
-                              )
-                            ],
+                                )
+                              ],
+                            ),
                           ),
                         ),
                         SizedBox(

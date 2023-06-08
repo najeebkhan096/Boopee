@@ -87,6 +87,7 @@ Widget BuildTextField(
     required String? hint,
     required String label,
     bool? date,
+    TextInputType textInputType = TextInputType.text,
     TextEditingController? controller}) {
   final width = MediaQuery.of(context!).size.width;
   final height = MediaQuery.of(context).size.height;
@@ -102,6 +103,7 @@ Widget BuildTextField(
       controller: controller,
       autofocus: true,
       style: myStyle.inter_1C1B1F(height * 0.016, FontWeight.w400),
+      keyboardType: textInputType,
       decoration: InputDecoration(
           hintText: hint,
           isDense: true,

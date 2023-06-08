@@ -1,3 +1,4 @@
+import 'package:boopee/modal/pet_breeds_model.dart';
 import 'package:boopee/modal/pet_tags_model.dart';
 import 'package:boopee/modal/register_request_model.dart';
 import 'package:dio/dio.dart';
@@ -63,10 +64,16 @@ class AuthDatasource {
     dio.options.headers['Accept'] = 'application/json';
 
     final response = await dio.get('https://boopee.lifemoz.com/api/pettags');
-
-    print(response.data);
     final result = PetTags.fromJson(response.data);
+    return result;
+  }
 
+  Future<PetBreeds> getPetBreeds() async {
+    final dio = Dio();
+    dio.options.headers['Accept'] = 'application/json';
+
+    final response = await dio.get('https://boopee.lifemoz.com/api/breeds');
+    final result = PetBreeds.fromJson(response.data);
     return result;
   }
 }

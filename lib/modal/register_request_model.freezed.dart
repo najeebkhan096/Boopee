@@ -60,6 +60,8 @@ mixin _$RegisterRequestModel {
   String get petSize => throw _privateConstructorUsedError;
   @JsonKey(name: 'pet_weight')
   String get petWeight => throw _privateConstructorUsedError;
+  @JsonKey(name: 'pet_image')
+  String get petPhoto => throw _privateConstructorUsedError;
   @JsonKey(name: 'breed_id')
   String get breedId => throw _privateConstructorUsedError;
   @JsonKey(name: 'm_breed_id')
@@ -129,6 +131,8 @@ abstract class $RegisterRequestModelCopyWith<$Res> {
           String petSize,
       @JsonKey(name: 'pet_weight')
           String petWeight,
+      @JsonKey(name: 'pet_image')
+          String petPhoto,
       @JsonKey(name: 'breed_id')
           String breedId,
       @JsonKey(name: 'm_breed_id')
@@ -182,6 +186,7 @@ class _$RegisterRequestModelCopyWithImpl<$Res,
     Object? petName = null,
     Object? petSize = null,
     Object? petWeight = null,
+    Object? petPhoto = null,
     Object? breedId = null,
     Object? mBreedId = null,
     Object? fBreedId = null,
@@ -280,6 +285,10 @@ class _$RegisterRequestModelCopyWithImpl<$Res,
           ? _value.petWeight
           : petWeight // ignore: cast_nullable_to_non_nullable
               as String,
+      petPhoto: null == petPhoto
+          ? _value.petPhoto
+          : petPhoto // ignore: cast_nullable_to_non_nullable
+              as String,
       breedId: null == breedId
           ? _value.breedId
           : breedId // ignore: cast_nullable_to_non_nullable
@@ -365,6 +374,8 @@ abstract class _$$_RegisterRequestModelCopyWith<$Res>
           String petSize,
       @JsonKey(name: 'pet_weight')
           String petWeight,
+      @JsonKey(name: 'pet_image')
+          String petPhoto,
       @JsonKey(name: 'breed_id')
           String breedId,
       @JsonKey(name: 'm_breed_id')
@@ -415,6 +426,7 @@ class __$$_RegisterRequestModelCopyWithImpl<$Res>
     Object? petName = null,
     Object? petSize = null,
     Object? petWeight = null,
+    Object? petPhoto = null,
     Object? breedId = null,
     Object? mBreedId = null,
     Object? fBreedId = null,
@@ -513,6 +525,10 @@ class __$$_RegisterRequestModelCopyWithImpl<$Res>
           ? _value.petWeight
           : petWeight // ignore: cast_nullable_to_non_nullable
               as String,
+      petPhoto: null == petPhoto
+          ? _value.petPhoto
+          : petPhoto // ignore: cast_nullable_to_non_nullable
+              as String,
       breedId: null == breedId
           ? _value.breedId
           : breedId // ignore: cast_nullable_to_non_nullable
@@ -593,6 +609,8 @@ class _$_RegisterRequestModel implements _RegisterRequestModel {
           required this.petSize,
       @JsonKey(name: 'pet_weight')
           required this.petWeight,
+      @JsonKey(name: 'pet_image')
+          required this.petPhoto,
       @JsonKey(name: 'breed_id')
           required this.breedId,
       @JsonKey(name: 'm_breed_id')
@@ -675,6 +693,9 @@ class _$_RegisterRequestModel implements _RegisterRequestModel {
   @JsonKey(name: 'pet_weight')
   final String petWeight;
   @override
+  @JsonKey(name: 'pet_image')
+  final String petPhoto;
+  @override
   @JsonKey(name: 'breed_id')
   final String breedId;
   @override
@@ -700,7 +721,7 @@ class _$_RegisterRequestModel implements _RegisterRequestModel {
 
   @override
   String toString() {
-    return 'RegisterRequestModel(firstName: $firstName, lastName: $lastName, pseudo: $pseudo, password: $password, email: $email, phoneNumber: $phoneNumber, isTosAccepted: $isTosAccepted, isOfferNotificationsEnabled: $isOfferNotificationsEnabled, isGpsEnabled: $isGpsEnabled, dob: $dob, petDescription: $petDescription, petAudio: $petAudio, qrCode: $qrCode, isMatchNotificationsEnabled: $isMatchNotificationsEnabled, isMessageNotificationsEnabled: $isMessageNotificationsEnabled, isPositionNotificationsEnabled: $isPositionNotificationsEnabled, deleteReasonId: $deleteReasonId, isSuspended: $isSuspended, ownerGenderId: $ownerGenderId, petName: $petName, petSize: $petSize, petWeight: $petWeight, breedId: $breedId, mBreedId: $mBreedId, fBreedId: $fBreedId, document: $document, petGenderId: $petGenderId, isPetLost: $isPetLost, isSterilized: $isSterilized, isDeleted: $isDeleted)';
+    return 'RegisterRequestModel(firstName: $firstName, lastName: $lastName, pseudo: $pseudo, password: $password, email: $email, phoneNumber: $phoneNumber, isTosAccepted: $isTosAccepted, isOfferNotificationsEnabled: $isOfferNotificationsEnabled, isGpsEnabled: $isGpsEnabled, dob: $dob, petDescription: $petDescription, petAudio: $petAudio, qrCode: $qrCode, isMatchNotificationsEnabled: $isMatchNotificationsEnabled, isMessageNotificationsEnabled: $isMessageNotificationsEnabled, isPositionNotificationsEnabled: $isPositionNotificationsEnabled, deleteReasonId: $deleteReasonId, isSuspended: $isSuspended, ownerGenderId: $ownerGenderId, petName: $petName, petSize: $petSize, petWeight: $petWeight, petPhoto: $petPhoto, breedId: $breedId, mBreedId: $mBreedId, fBreedId: $fBreedId, document: $document, petGenderId: $petGenderId, isPetLost: $isPetLost, isSterilized: $isSterilized, isDeleted: $isDeleted)';
   }
 
   @override
@@ -751,6 +772,8 @@ class _$_RegisterRequestModel implements _RegisterRequestModel {
             (identical(other.petSize, petSize) || other.petSize == petSize) &&
             (identical(other.petWeight, petWeight) ||
                 other.petWeight == petWeight) &&
+            (identical(other.petPhoto, petPhoto) ||
+                other.petPhoto == petPhoto) &&
             (identical(other.breedId, breedId) || other.breedId == breedId) &&
             (identical(other.mBreedId, mBreedId) ||
                 other.mBreedId == mBreedId) &&
@@ -764,8 +787,7 @@ class _$_RegisterRequestModel implements _RegisterRequestModel {
                 other.isPetLost == isPetLost) &&
             (identical(other.isSterilized, isSterilized) ||
                 other.isSterilized == isSterilized) &&
-            (identical(other.isDeleted, isDeleted) ||
-                other.isDeleted == isDeleted));
+            (identical(other.isDeleted, isDeleted) || other.isDeleted == isDeleted));
   }
 
   @JsonKey(ignore: true)
@@ -794,6 +816,7 @@ class _$_RegisterRequestModel implements _RegisterRequestModel {
         petName,
         petSize,
         petWeight,
+        petPhoto,
         breedId,
         mBreedId,
         fBreedId,
@@ -861,6 +884,8 @@ abstract class _RegisterRequestModel implements RegisterRequestModel {
           required final String petSize,
       @JsonKey(name: 'pet_weight')
           required final String petWeight,
+      @JsonKey(name: 'pet_image')
+          required final String petPhoto,
       @JsonKey(name: 'breed_id')
           required final String breedId,
       @JsonKey(name: 'm_breed_id')
@@ -942,6 +967,9 @@ abstract class _RegisterRequestModel implements RegisterRequestModel {
   @override
   @JsonKey(name: 'pet_weight')
   String get petWeight;
+  @override
+  @JsonKey(name: 'pet_image')
+  String get petPhoto;
   @override
   @JsonKey(name: 'breed_id')
   String get breedId;

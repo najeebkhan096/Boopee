@@ -78,8 +78,11 @@ class ConfirmEmailScreen extends ConsumerWidget {
             BlueButton(
                 text: "Confirm email address ->",
                 onpress: () {
-                  authProvider.getPetTags().then((value) {
-                    if (value) {
+                  Future.value([
+                    authProvider.getPetTags(),
+                    authProvider.getPetBreeds()
+                  ]).then((values) async {
+                    if (await values[0] && await values[1]) {
                       Navigator.of(context)
                           .push(MaterialPageRoute(builder: (context) {
                         return const PhoneConfirmation();

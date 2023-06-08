@@ -1,11 +1,18 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:io';
+
+import 'package:boopee/modal/pet_breeds_model.dart';
 import 'package:boopee/screens/thankyou.dart';
 import 'package:boopee/states/auth_states/auth_state_provider.dart';
 import 'package:boopee/widgets/button.dart';
 import 'package:boopee/widgets/constants.dart';
 import 'package:boopee/widgets/dropdown.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 
 class PhoneConfirmation extends ConsumerStatefulWidget {
   const PhoneConfirmation({super.key});
@@ -59,111 +66,63 @@ class _PhoneConfirmationState extends ConsumerState<PhoneConfirmation> {
     "Playfull"
   ].map((character) => {"text": character, "status": false}).toList();
 
-  List<String> searchedgogs = [
-    'Akita',
-    'Australian Shepherd',
-    'Basset Hound',
-    'Beagle',
-    'Bernese Mountain Dog',
-    'Bichon Frise',
-    'Border Collie',
-    'Boston Terrier',
-    'Boxer',
-    'Bulldog',
-    'Cavalier King Charles Spaniel',
-    'Chihuahua',
-    'Cocker Spaniel',
-    'Dachshund',
-    'Doberman Pinscher',
-    'English Springer Spaniel',
-    'French Bulldog',
-    'German Shepherd',
-    'Golden Retriever',
-    'Great Dane',
-    'Greyhound',
-    'Husky',
-    'Irish Setter',
-    'Jack Russell Terrier',
-    'Labrador Retriever',
-    'Lhasa Apso',
-    'Maltese',
-    'Miniature Pinscher',
-    'Miniature Schnauzer',
-    'Newfoundland',
-    'Old English Sheepdog',
-    'Papillon',
-    'Pekingese',
-    'Pit Bull',
-    'Pointer',
-    'Pomeranian',
-    'Poodle',
-    'Pug',
-    'Rottweiler',
-    'Saint Bernard',
-    'Shar Pei',
-    'Shetland Sheepdog',
-    'Shih Tzu',
-    'Siberian Husky',
-    'Staffordshire Bull Terrier',
-    'Standard Schnauzer',
-    'Toy Poodle',
-    'Weimaraner',
-    'West Highland White Terrier',
-    'Yorkshire Terrier'
-  ];
+  List<String> searchedgogs = [];
 
-  List<String> dogBreeds = [
-    'Akita',
-    'Australian Shepherd',
-    'Basset Hound',
-    'Beagle',
-    'Bernese Mountain Dog',
-    'Bichon Frise',
-    'Border Collie',
-    'Boston Terrier',
-    'Boxer',
-    'Bulldog',
-    'Cavalier King Charles Spaniel',
-    'Chihuahua',
-    'Cocker Spaniel',
-    'Dachshund',
-    'Doberman Pinscher',
-    'English Springer Spaniel',
-    'French Bulldog',
-    'German Shepherd',
-    'Golden Retriever',
-    'Great Dane',
-    'Greyhound',
-    'Husky',
-    'Irish Setter',
-    'Jack Russell Terrier',
-    'Labrador Retriever',
-    'Lhasa Apso',
-    'Maltese',
-    'Miniature Pinscher',
-    'Miniature Schnauzer',
-    'Newfoundland',
-    'Old English Sheepdog',
-    'Papillon',
-    'Pekingese',
-    'Pit Bull',
-    'Pointer',
-    'Pomeranian',
-    'Poodle',
-    'Pug',
-    'Rottweiler',
-    'Saint Bernard',
-    'Shar Pei',
-    'Shetland Sheepdog',
-    'Shih Tzu',
-    'Siberian Husky',
-    'Staffordshire Bull Terrier',
-    'Standard Schnauzer',
-    'Toy Poodle',
-    'Weimaraner',
-    'West Highland White Terrier',
-    'Yorkshire Terrier'
-  ];
+  List<PetBreedsData> allDogBreeds = [];
+
+  List<String> dogBreeds = [];
+  // [
+  //   'Akita',
+  //   'Australian Shepherd',
+  //   'Basset Hound',
+  //   'Beagle',
+  //   'Bernese Mountain Dog',
+  //   'Bichon Frise',
+  //   'Border Collie',
+  //   'Boston Terrier',
+  //   'Boxer',
+  //   'Bulldog',
+  //   'Cavalier King Charles Spaniel',
+  //   'Chihuahua',
+  //   'Cocker Spaniel',
+  //   'Dachshund',
+  //   'Doberman Pinscher',
+  //   'English Springer Spaniel',
+  //   'French Bulldog',
+  //   'German Shepherd',
+  //   'Golden Retriever',
+  //   'Great Dane',
+  //   'Greyhound',
+  //   'Husky',
+  //   'Irish Setter',
+  //   'Jack Russell Terrier',
+  //   'Labrador Retriever',
+  //   'Lhasa Apso',
+  //   'Maltese',
+  //   'Miniature Pinscher',
+  //   'Miniature Schnauzer',
+  //   'Newfoundland',
+  //   'Old English Sheepdog',
+  //   'Papillon',
+  //   'Pekingese',
+  //   'Pit Bull',
+  //   'Pointer',
+  //   'Pomeranian',
+  //   'Poodle',
+  //   'Pug',
+  //   'Rottweiler',
+  //   'Saint Bernard',
+  //   'Shar Pei',
+  //   'Shetland Sheepdog',
+  //   'Shih Tzu',
+  //   'Siberian Husky',
+  //   'Staffordshire Bull Terrier',
+  //   'Standard Schnauzer',
+  //   'Toy Poodle',
+  //   'Weimaraner',
+  //   'West Highland White Terrier',
+  //   'Yorkshire Terrier'
+  // ];
 
   TextEditingController search = TextEditingController();
 
@@ -248,6 +207,13 @@ class _PhoneConfirmationState extends ConsumerState<PhoneConfirmation> {
                               onTap: () {
                                 setState(() {
                                   mother = searchedgogs[index];
+                                  final mID = allDogBreeds
+                                      .firstWhere(
+                                          (element) => element.name == mother)
+                                      .id;
+                                  ref
+                                      .watch(authBlocProvider.notifier)
+                                      .updatePetMotherBreedID(mID);
                                 });
                                 search.clear();
                                 Navigator.of(context).pop();
@@ -353,6 +319,14 @@ class _PhoneConfirmationState extends ConsumerState<PhoneConfirmation> {
                               onTap: () {
                                 setState(() {
                                   father = searchedgogs[index];
+
+                                  final fID = allDogBreeds
+                                      .firstWhere(
+                                          (element) => element.name == father)
+                                      .id;
+                                  ref
+                                      .watch(authBlocProvider.notifier)
+                                      .updatePetMotherBreedID(fID);
                                 });
                                 search.clear();
                                 Navigator.of(context).pop();
@@ -387,6 +361,10 @@ class _PhoneConfirmationState extends ConsumerState<PhoneConfirmation> {
         .toList()
         .map((e) => {"text": e, "status": false})
         .toList();
+
+    allDogBreeds = ref.read(authBlocProvider).petBreeds?.data ?? [];
+    dogBreeds = allDogBreeds.map((e) => e.name).toList();
+    searchedgogs = List.from(dogBreeds);
   }
 
   @override
@@ -689,6 +667,9 @@ class _PhoneConfirmationState extends ConsumerState<PhoneConfirmation> {
                           child: ListTile(
                             onTap: () {
                               setState(() {
+                                for (int i = 0; i < data.length; i++) {
+                                  data[i]['status'] = false;
+                                }
                                 data[index]['status'] = !data[index]['status'];
                               });
                             },
@@ -763,7 +744,10 @@ class _PhoneConfirmationState extends ConsumerState<PhoneConfirmation> {
                                           .watch(authBlocProvider.notifier)
                                           .updateIsSterilized(true);
                                       setState(() {
-                                        _isChecked = val!;
+                                        if (val!) {
+                                          _isChecked = val;
+                                          _isChecked2 = false;
+                                        }
                                       });
                                     }),
                                 Text(
@@ -796,7 +780,10 @@ class _PhoneConfirmationState extends ConsumerState<PhoneConfirmation> {
                                           .watch(authBlocProvider.notifier)
                                           .updateIsSterilized(false);
                                       setState(() {
-                                        _isChecked2 = val!;
+                                        if (val!) {
+                                          _isChecked2 = val;
+                                          _isChecked = false;
+                                        }
                                       });
                                     }),
                                 Text(
@@ -905,44 +892,45 @@ class _PhoneConfirmationState extends ConsumerState<PhoneConfirmation> {
             SizedBox(
               height: height * 0.05,
             ),
-            Container(
-              margin: EdgeInsets.only(left: width * 0.075, right: width * 0.05),
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              height: 52.0,
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black),
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              alignment: Alignment.centerLeft,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    authState.petDob.isEmpty
-                        ? "Select your pet dob"
-                        : authState.petDob,
-                    style: myStyle.poppin_57534E(16.0, FontWeight.w100),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(1900),
-                              lastDate: DateTime(2100))
-                          .then((value) {
-                        if (value != null) {
-                          authProvider.updatePetDOB(
-                              "${value.day.toString().padLeft(2, "0")}/${value.month.toString().padLeft(2, "0")}/${value.year}");
-                        }
-                      });
-                    },
-                    child: Image.asset(
+            GestureDetector(
+              onTap: () {
+                showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(1900),
+                        lastDate: DateTime(2100))
+                    .then((value) {
+                  if (value != null) {
+                    authProvider.updatePetDOB(
+                        "${value.day.toString().padLeft(2, "0")}/${value.month.toString().padLeft(2, "0")}/${value.year}");
+                  }
+                });
+              },
+              child: Container(
+                margin:
+                    EdgeInsets.only(left: width * 0.075, right: width * 0.05),
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                height: 52.0,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      authState.petDob.isEmpty
+                          ? "Select your pet dob"
+                          : authState.petDob,
+                      style: myStyle.poppin_57534E(16.0, FontWeight.w100),
+                    ),
+                    Image.asset(
                       "images/calender.png",
                       height: height * 0.025,
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
           ],
@@ -1046,6 +1034,8 @@ class _PhoneConfirmationState extends ConsumerState<PhoneConfirmation> {
                   context: context,
                   controller: petWeightController,
                   label: "Dog’s Weight",
+                  textInputType:
+                      const TextInputType.numberWithOptions(decimal: true),
                   hint: "Enter you dog’s weight",
                   date: false),
               SizedBox(
@@ -1054,7 +1044,7 @@ class _PhoneConfirmationState extends ConsumerState<PhoneConfirmation> {
               CustomDropdownButton(
                 value: choice,
                 labelText: 'Size of the dog',
-                items: const ["a", "b", "c"],
+                items: const ["Small", "Medium", "Large"],
                 onChanged: (val) {},
               ),
               SizedBox(height: height * 0.025),
@@ -1088,6 +1078,7 @@ class _PhoneConfirmationState extends ConsumerState<PhoneConfirmation> {
   Widget fifthScreen(BuildContext context, WidgetRef ref) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+
     return SizedBox(
       width: width * 1,
       height: height * 1,
@@ -1194,10 +1185,132 @@ class _PhoneConfirmationState extends ConsumerState<PhoneConfirmation> {
                               SizedBox(
                                 height: height * 0.02,
                               ),
-                              whiteButton(
-                                text: "Upload photo",
-                                onpress: () {},
-                              ),
+                              if (ref.watch(authBlocProvider).showLoding)
+                                const SizedBox(
+                                    height: 25.0,
+                                    width: 25.0,
+                                    child: CircularProgressIndicator(
+                                        strokeWidth: 1.5))
+                              else
+                                whiteButton(
+                                  text: (ref
+                                                  .watch(authBlocProvider)
+                                                  .registerRequestModel
+                                                  ?.petPhoto ??
+                                              "")
+                                          .isNotEmpty
+                                      ? "Change Image"
+                                      : "Upload photo",
+                                  onpress: () async {
+                                    final fbStorageRef =
+                                        FirebaseStorage.instance.ref();
+
+                                    ref
+                                        .watch(authBlocProvider.notifier)
+                                        .updateShowLoading(true);
+
+                                    final picker = ImagePicker();
+                                    final pickedFile = await picker.pickImage(
+                                        source: ImageSource.gallery);
+
+                                    if (pickedFile != null) {
+                                      final file = File(pickedFile.path);
+                                      final fileName = DateTime.now()
+                                          .millisecondsSinceEpoch
+                                          .toString();
+
+                                      final uploadTask = fbStorageRef
+                                          .child("images/${fileName}_DOG.jpg")
+                                          .putFile(file);
+                                      uploadTask.snapshotEvents.listen(
+                                          (TaskSnapshot taskSnapshot) async {
+                                        switch (taskSnapshot.state) {
+                                          case TaskState.running:
+                                            final progress = 100.0 *
+                                                (taskSnapshot.bytesTransferred /
+                                                    taskSnapshot.totalBytes);
+
+                                            break;
+                                          case TaskState.paused:
+                                            print("Upload is paused.");
+
+                                            ref
+                                                .watch(
+                                                    authBlocProvider.notifier)
+                                                .updateShowLoading(true);
+                                            break;
+                                          case TaskState.canceled:
+                                            print("Upload was canceled");
+
+                                            ref
+                                                .watch(
+                                                    authBlocProvider.notifier)
+                                                .updateShowLoading(false);
+                                            break;
+                                          case TaskState.error:
+                                            ref
+                                                .watch(
+                                                    authBlocProvider.notifier)
+                                                .updateShowLoading(false);
+
+                                            showDialog(
+                                              context: context,
+                                              builder: (context) => AlertDialog(
+                                                title: const Text(
+                                                    'No Image Selected'),
+                                                content: const Text(
+                                                    'Please select an image to upload.'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(context),
+                                                    child: const Text('OK'),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                            break;
+                                          case TaskState.success:
+                                            final downloadUrl =
+                                                await taskSnapshot.ref
+                                                    .getDownloadURL();
+                                            ref
+                                                .read(authBlocProvider.notifier)
+                                                .updatePetPhoto(downloadUrl);
+
+                                            ref
+                                                .watch(
+                                                    authBlocProvider.notifier)
+                                                .updateShowLoading(false);
+                                            setState(() {
+                                              currentindex = 6;
+                                            });
+                                            break;
+                                        }
+                                      });
+                                    } else {
+                                      ref
+                                          .watch(authBlocProvider.notifier)
+                                          .updateShowLoading(false);
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          title:
+                                              const Text('No Image Selected'),
+                                          content: const Text(
+                                              'Please select an image to upload.'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () =>
+                                                  Navigator.pop(context),
+                                              child: const Text('OK'),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    }
+                                  },
+                                ),
                               SizedBox(
                                 height: height * 0.02,
                               ),
